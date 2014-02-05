@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>JEE</artifactId>
+        <groupId>fr.dr02.gesticonf.jee</groupId>
+        <version>0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>EAR</artifactId>
+    <version>0.2-SNAPSHOT</version>
+
+    <packaging>ear</packaging>
+
+    <name>Test EAR</name>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>fr.dr02.gesticonf.jee</groupId>
+            <artifactId>EJB</artifactId>
+            <version>0.2-SNAPSHOT</version>
+            <type>ejb</type>
+        </dependency>
+
+
+
+        <dependency>
+            <groupId>fr.dr02.gesticonf.jee</groupId>
+            <artifactId>JSF</artifactId>
+            <version>0.2-SNAPSHOT</version>
+            <type>war</type>
+        </dependency>
+
+
+    </dependencies>
+
+    <build>
+        <plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-ear-plugin</artifactId>
+                <version>2.8</version>
+                <configuration>
+                    <version>6</version>
+                    <defaultLibBundleDir>lib</defaultLibBundleDir>
+                    <!--generateApplicationXml>false</generateApplicationXml-->
+                    <modules>
+                        <webModule>
+                            <groupId>fr.dr02.gesticonf.jee</groupId>
+                            <artifactId>JSF</artifactId>
+                        </webModule>
+                        <ejbModule>
+                            <groupId>fr.dr02.gesticonf.jee</groupId>
+                            <artifactId>EJB</artifactId>
+                            <bundleFileName>EJB.jar</bundleFileName>
+                        </ejbModule>
+                    </modules>
+
+                </configuration>
+            </plugin>
+
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-acr-plugin</artifactId>
+                <version>1.0</version>
+                <extensions>true</extensions>
+            </plugin>
+
+            <!-- Gestion simple de serveurs d'applications -->
+            <plugin>
+                <groupId>org.codehaus.cargo</groupId>
+                <artifactId>cargo-maven2-plugin</artifactId>
+                <version>${cargo.plugin.version}</version>
+
+                <configuration>
+                    <container>
+                        <containerId>${integration.container.id}</containerId>
+                        <type>remote</type>
+                    </container>
+                    <configuration>
+                        <type>runtime</type>
+                        <properties>
+                            <cargo.hostname>${glassfish.hostname}</cargo.hostname>
+                            <cargo.remote.username>${glassfish.remote.username}</cargo.remote.username>
+                            <cargo.remote.password>${glassfish.remote.password}</cargo.remote.password>
+                            <cargo.remote.port>${glassfish.remote.port}</cargo.remote.port>
+                            <cargo.glassfish.domain.name>${glassfish.domain.name}</cargo.glassfish.domain.name>
+                        </properties>
+                    </configuration>
+
+                    <!-- Deployables configuration -->
+                    <deployables>
+                        <deployable>
+                            <groupId>fr.dr02.gesticonf.jee</groupId>
+                            <artifactId>EAR</artifactId>
+                            <type>ear</type>
+                            <!--pingURL>optional url to ping to know if deployable is done or not</pingURL>
+                            <pingTimeout>optional timeout to ping (default 20000 milliseconds)</pingTimeout-->
+                        </deployable>
+                    </deployables>
+
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.glassfish.deployment</groupId>
+                        <artifactId>deployment-client</artifactId>
+                        <version>3.2-b06</version>
+                    </dependency>
+                </dependencies>
+
+            </plugin>
+
+
+        </plugins>
+    </build>
+
+
+
+</project>

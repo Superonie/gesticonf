@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+<head>
+    <title>Ajouter un lot</title>
+</head>
+<body>
+<h1>Ajouter un lot</h1>
+<h:form>
+
+    Id : <h:inputText value="#{presentationBean.idEntity}"></h:inputText><br/>
+    Debut : <h:inputText value="#{presentationBean.heureDeb}"></h:inputText><br/>
+    Fin : <h:inputText value="#{presentationBean.heureFin}"></h:inputText><br/>
+    Theme : <h:inputText value="#{presentationBean.theme}"></h:inputText><br/>
+
+    <h:commandButton id="ajouter" value="Nouvelle presentation" action="#{presentationBean.ajouter}"  />
+
+</h:form>
+
+</body>
+</html>
