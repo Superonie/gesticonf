@@ -10,7 +10,6 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>EAR</artifactId>
-    <version>0.2-SNAPSHOT</version>
 
     <packaging>ear</packaging>
 
@@ -24,7 +23,7 @@
         <dependency>
             <groupId>fr.dr02.gesticonf.jee</groupId>
             <artifactId>EJB</artifactId>
-            <version>0.2-SNAPSHOT</version>
+            <version>0.1-SNAPSHOT</version>
             <type>ejb</type>
         </dependency>
 
@@ -33,7 +32,7 @@
         <dependency>
             <groupId>fr.dr02.gesticonf.jee</groupId>
             <artifactId>JSF</artifactId>
-            <version>0.2-SNAPSHOT</version>
+            <version>0.1-SNAPSHOT</version>
             <type>war</type>
         </dependency>
 

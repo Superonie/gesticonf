@@ -11,7 +11,6 @@
 
     <artifactId>JSF</artifactId>
     <packaging>war</packaging>
-    <version>0.2-SNAPSHOT</version>
 
     <name>JSF</name>
 
@@ -29,12 +28,13 @@
         </dependency>
 
         <dependency>
-            <groupId>fr.dr02.gesticonf.jee.ejb</groupId>
+            <groupId>fr.dr02.gesticonf.jee</groupId>
             <artifactId>EJB</artifactId>
             <version>0.1-SNAPSHOT</version>
             <type>ejb-client</type>
             <scope>provided</scope>
         </dependency>
+
     </dependencies>
 
 
