@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/JEE/EAR/EAR.iml" filepath="$PROJECT_DIR$/JEE/EAR/EAR.iml" />
+      <module fileurl="file://$PROJECT_DIR$/JEE/EJB/EJB.iml" filepath="$PROJECT_DIR$/JEE/EJB/EJB.iml" />
+      <module fileurl="file://$PROJECT_DIR$/JEE/JEE.iml" filepath="$PROJECT_DIR$/JEE/JEE.iml" />
+      <module fileurl="file://$PROJECT_DIR$/JPA/JPA.iml" filepath="$PROJECT_DIR$/JPA/JPA.iml" />
+      <module fileurl="file://$PROJECT_DIR$/JEE/JSF/JSF.iml" filepath="$PROJECT_DIR$/JEE/JSF/JSF.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gesticonf.iml" filepath="$PROJECT_DIR$/gesticonf.iml" />
+    </modules>
+  </component>
+</project>
+

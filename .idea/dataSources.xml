@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="1423851726">
+    <data-source source="LOCAL" name="gesticonf" uuid="ff8222b3-3855-41aa-a88f-ed300a690017">
+      <driver-ref>h2.embedded</driver-ref>
+      <jdbc-driver>org.h2.Driver</jdbc-driver>
+      <jdbc-url>jdbc:h2:~/gesticonf</jdbc-url>
+      <user-name>sa</user-name>
+      <user-password>dfdadfcbdfd9dfd9</user-password>
+      <libraries>
+        <library>
+          <url>file://$USER_HOME$/glassfish4/glassfish/lib/h2-1.3.174.jar</url>
+        </library>
+      </libraries>
+    </data-source>
+  </component>
+</project>
+

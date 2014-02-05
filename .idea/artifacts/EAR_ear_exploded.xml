@@ -1,0 +1,32 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-ear" name="EAR:ear exploded">
+    <output-path>$PROJECT_DIR$/JEE/EAR/target/EAR-0.2-SNAPSHOT</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="EAR/javaeeApplication/JavaEE" />
+      <element id="dir-copy" path="$PROJECT_DIR$/JEE/EAR/src/main/application" />
+      <element id="directory" name="EJB.jar">
+        <element id="artifact" artifact-name="EJB:ejb exploded" />
+      </element>
+      <element id="directory" name="lib">
+        <element id="archive" name="JPA-0.1-SNAPSHOT.jar">
+          <element id="module-output" name="JPA" />
+        </element>
+        <element id="library" level="project" name="Maven: org.hibernate.javax.persistence:hibernate-jpa-2.0-api:1.0.1.Final" />
+        <element id="library" level="project" name="Maven: org.hibernate:hibernate-entitymanager:4.0.1.Final" />
+        <element id="library" level="project" name="Maven: org.jboss.spec.javax.transaction:jboss-transaction-api_1.1_spec:1.0.0.Final" />
+        <element id="library" level="project" name="Maven: dom4j:dom4j:1.6.1" />
+        <element id="library" level="project" name="Maven: xml-apis:xml-apis:1.0.b2" />
+        <element id="library" level="project" name="Maven: org.hibernate:hibernate-core:4.0.1.Final" />
+        <element id="library" level="project" name="Maven: commons-collections:commons-collections:3.2.1" />
+        <element id="library" level="project" name="Maven: antlr:antlr:2.7.7" />
+        <element id="library" level="project" name="Maven: org.jboss.logging:jboss-logging:3.1.0.CR2" />
+        <element id="library" level="project" name="Maven: org.javassist:javassist:3.15.0-GA" />
+        <element id="library" level="project" name="Maven: org.hibernate.common:hibernate-commons-annotations:4.0.1.Final" />
+        <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.21" />
+      </element>
+      <element id="directory" name="JSF-0.2-SNAPSHOT.war">
+        <element id="artifact" artifact-name="JSF:war exploded" />
+      </element>
+    </root>
+  </artifact>
+</component>
