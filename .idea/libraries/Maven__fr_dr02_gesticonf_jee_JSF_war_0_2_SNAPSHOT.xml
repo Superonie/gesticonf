@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Maven: fr.dr02.gesticonf.jee:JSF:war:0.2-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/fr/dr02/gesticonf/jee/JSF/0.2-SNAPSHOT/JSF-0.2-SNAPSHOT.war!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/JEE/JSF/JSF-0.2-SNAPSHOT-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/fr/dr02/gesticonf/jee/JSF/0.2-SNAPSHOT/JSF-0.2-SNAPSHOT-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/JEE/JSF/JSF-0.2-SNAPSHOT-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/fr/dr02/gesticonf/jee/JSF/0.2-SNAPSHOT/JSF-0.2-SNAPSHOT-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
