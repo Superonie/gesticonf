@@ -23,6 +23,7 @@ public class PresentationBean {
     private String heureDebut;
     private String heureFin;
     private String sujet;
+    private int refConference;
 
     public String getHeureFin() {
         return heureFin;
@@ -54,12 +55,17 @@ public class PresentationBean {
         this.sujet = sujet;
     }
 
+    public int getRefConference() { return refConference; }
+
+    public void setRefConference(int refConference) { this.refConference = refConference; }
+
     public void ajouter() {
         PresentationEntity presentationEntity = new PresentationEntity();
         presentationEntity.setIdEntity(idPresentation);
         presentationEntity.setHeureDeb(heureDebut);
         presentationEntity.setHeureFin(heureFin);
         presentationEntity.setSujet(sujet);
+        presentationEntity.setRefConference(refConference);
 
         this.presentationManager.ajouter(presentationEntity);
     }

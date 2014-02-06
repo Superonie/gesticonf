@@ -13,6 +13,7 @@ public class PresentationEntity {
     private String heureDeb;
     private String heureFin;
     private String sujet;
+    private int refConference;
 
     @Id
     @Column(name = "ID_ENTITY")
@@ -54,8 +55,18 @@ public class PresentationEntity {
         this.sujet = theme;
     }
 
+    @Basic
+    @Column(name = "REF_CONFERENCE")
+    public int getRefConference() {
+        return refConference;
+    }
+
+    public void setRefConference(int refConference) {
+        this.refConference = refConference;
+    }
+
     @Override
     public String toString() {
-        return idEntity + " : " + heureDeb + " -> " + heureFin +" sur " + sujet;
+        return refConference+"/"+idEntity + " : " + heureDeb + " -> " + heureFin +" sur " + sujet;
     }
 }

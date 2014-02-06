@@ -12,6 +12,11 @@
 <body>
 <h:form>
 
+    Conference :
+    <h:selectOneMenu id="combo" value="#{presentationBean.refConference}">
+        <f:selectItems value="#{conferenceManager.findIds()}">
+        </f:selectItems>
+    </h:selectOneMenu><br/>
     Id : <h:inputText value="#{presentationBean.idPresentation}"></h:inputText><br/>
     Debut : <h:inputText value="#{presentationBean.heureDebut}"></h:inputText><br/>
     Fin : <h:inputText value="#{presentationBean.heureFin}"></h:inputText><br/>
