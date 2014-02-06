@@ -72,8 +72,11 @@ public class ConferenceManager {
     @WebMethod
     public int findIdAvailable() {
         Query query = emf.createEntityManager().createQuery("SELECT c FROM ConferenceEntity c ORDER BY c.idConference DESC");
-        ConferenceEntity ce = (ConferenceEntity) query.getResultList().get(0);
-        return (1+ce.getIdConference());
+        List<ConferenceEntity> l = query.getResultList();
+        if ( l.size() > 0 )
+            return (l.get(0).getIdConference() + 1);
+        else // il se peut qu'il n'y ait aucune donnée persistante dans la base
+            return 0;
     }
 
 

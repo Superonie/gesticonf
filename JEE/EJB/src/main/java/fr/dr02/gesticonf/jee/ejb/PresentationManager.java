@@ -11,6 +11,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by damien on 04/02/14.
@@ -37,8 +38,11 @@ public class PresentationManager {
     @WebMethod
     public int findIdAvailable() {
         Query query = emf.createEntityManager().createQuery("SELECT p FROM PresentationEntity p ORDER BY p.idPresentation DESC");
-        PresentationEntity pe = (PresentationEntity) query.getResultList().get(0);
-        return (1+pe.getIdPresentation());
+        List<PresentationEntity> l = query.getResultList();
+        if ( l.size() > 0 )
+            return (l.get(0).getIdPresentation() + 1);
+        else // il se peut qu'il n'y ait aucune donnée persistante dans la base
+            return 0;
     }
 
     public void ajouter(PresentationEntity presentationEntity) {
