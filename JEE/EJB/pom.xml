@@ -44,7 +44,7 @@
             </plugin>
 
 
-<!--
+
             <plugin>
                 <groupId>org.jvnet.jax-ws-commons</groupId>
                 <artifactId>jaxws-maven-plugin</artifactId>
@@ -57,13 +57,13 @@
                             <goal>wsgen</goal>
                         </goals>
                         <configuration>
-                            <sei>fr.univ_tln.hdr.pharmagest.jee.ejb.MedicamentManager</sei>
+                            <sei>fr.dr02.gesticonf.jee.ejb.ConferenceManager</sei>
                             <genWsdl>true</genWsdl>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
--->
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>

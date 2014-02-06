@@ -15,6 +15,7 @@
         <module>EAR</module>
         <module>EJB</module>
         <module>JSF</module>
+        <module>RS</module>
     </modules>
     <name>Application JEE de Test</name>
     <packaging>pom</packaging>
