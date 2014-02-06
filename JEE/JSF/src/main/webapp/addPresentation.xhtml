@@ -13,8 +13,8 @@
 <h:form>
 
     Conference :
-    <h:selectOneMenu id="combo" value="#{presentationBean.refConference}">
-        <f:selectItems value="#{conferenceManager.findIds()}">
+    <h:selectOneMenu id="combo" value="#{presentationBean.refName}">
+        <f:selectItems value="#{conferenceManager.findAllNames()}">
         </f:selectItems>
     </h:selectOneMenu><br/>
     Id : <h:inputText value="#{presentationBean.idPresentation}"></h:inputText><br/>

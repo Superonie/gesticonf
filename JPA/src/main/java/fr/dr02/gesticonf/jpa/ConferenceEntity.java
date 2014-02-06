@@ -67,6 +67,6 @@ public class ConferenceEntity {
 
     @Override
     public String toString() {
-        return idConference+ " : " + dateDebut + " -> " + dateFin +" sur " + theme;
+        return idConference+ " "+nomConference+" : " + dateDebut + " -> " + dateFin +" sur " + theme;
     }
 }

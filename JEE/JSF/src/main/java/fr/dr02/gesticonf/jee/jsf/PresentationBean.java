@@ -1,5 +1,6 @@
 package fr.dr02.gesticonf.jee.jsf;
 
+import fr.dr02.gesticonf.jee.ejb.ConferenceManager;
 import fr.dr02.gesticonf.jee.ejb.PresentationManager;
 import fr.dr02.gesticonf.jpa.PresentationEntity;
 
@@ -19,11 +20,15 @@ public class PresentationBean {
     @EJB
     private PresentationManager presentationManager;
 
+    @EJB
+    ConferenceManager conferenceManager;
+
     private int idPresentation;
     private String heureDebut;
     private String heureFin;
     private String sujet;
     private int refConference;
+    private String refName;
 
     public String getHeureFin() {
         return heureFin;
@@ -59,7 +64,13 @@ public class PresentationBean {
 
     public void setRefConference(int refConference) { this.refConference = refConference; }
 
+    public String getRefName() { return refName;  }
+
+    public void setRefName(String refName) {  this.refName = refName;  }
+
     public void ajouter() {
+        refConference = conferenceManager.findByName(refName).getIdConference();
+
         PresentationEntity presentationEntity = new PresentationEntity();
         presentationEntity.setIdEntity(idPresentation);
         presentationEntity.setHeureDeb(heureDebut);
