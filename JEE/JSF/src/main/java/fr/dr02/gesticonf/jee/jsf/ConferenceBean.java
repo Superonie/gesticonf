@@ -21,7 +21,7 @@ public class ConferenceBean {
 
     private int idConference;
     private String nomConference;
-    private String dateDeb;
+    private String dateDebut;
     private String dateFin;
     private String theme;
 
@@ -41,12 +41,12 @@ public class ConferenceBean {
         this.nomConference = nomConference;
     }
 
-    public String getDateDeb() {
-        return dateDeb;
+    public String getDateDebut() {
+        return dateDebut;
     }
 
-    public void setDateDeb(String dateDeb) {
-        this.dateDeb = dateDeb;
+    public void setDateDebut(String dateDebut) {
+        this.dateDebut = dateDebut;
     }
 
     public String getDateFin() {
@@ -69,7 +69,7 @@ public class ConferenceBean {
         ConferenceEntity conferenceEntity = new ConferenceEntity();
         conferenceEntity.setIdConference(idConference);
         conferenceEntity.setNomConference(nomConference);
-        conferenceEntity.setDateDebut(dateDeb);
+        conferenceEntity.setDateDebut(dateDebut);
         conferenceEntity.setDateFin(dateFin);
         conferenceEntity.setTheme(theme);
 

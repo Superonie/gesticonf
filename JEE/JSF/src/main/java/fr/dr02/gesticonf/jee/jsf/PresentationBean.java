@@ -19,8 +19,10 @@ public class PresentationBean {
     @EJB
     private PresentationManager presentationManager;
 
-    private int idEntity;
-    private String heureDeb;
+    private int idPresentation;
+    private String heureDebut;
+    private String heureFin;
+    private String theme;
 
     public String getHeureFin() {
         return heureFin;
@@ -30,20 +32,20 @@ public class PresentationBean {
         this.heureFin = heureFin;
     }
 
-    public String getHeureDeb() {
-        return heureDeb;
+    public String getHeureDebut() {
+        return heureDebut;
     }
 
-    public void setHeureDeb(String heureDeb) {
-        this.heureDeb = heureDeb;
+    public void setHeureDebut(String heureDebut) {
+        this.heureDebut = heureDebut;
     }
 
-    public int getIdEntity() {
-        return idEntity;
+    public int getIdPresentation() {
+        return idPresentation;
     }
 
-    public void setIdEntity(int idEntity) {
-        this.idEntity = idEntity;
+    public void setIdPresentation(int idPresentation) {
+        this.idPresentation = idPresentation;
     }
 
     public String getTheme() {
@@ -54,13 +56,10 @@ public class PresentationBean {
         this.theme = theme;
     }
 
-    private String heureFin;
-    private String theme;
-
     public void ajouter() {
         PresentationEntity presentationEntity = new PresentationEntity();
-        presentationEntity.setIdEntity(idEntity);
-        presentationEntity.setHeureDeb(heureDeb);
+        presentationEntity.setIdEntity(idPresentation);
+        presentationEntity.setHeureDeb(heureDebut);
         presentationEntity.setHeureFin(heureFin);
         presentationEntity.setSujet(theme);
 
