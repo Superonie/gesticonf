@@ -1,6 +1,7 @@
 package fr.dr02.gesticonf.jee.ejb;
 
 import fr.dr02.gesticonf.jpa.ConferenceEntity;
+import fr.dr02.gesticonf.jpa.PresentationEntity;
 
 import javax.ejb.Stateless;
 import javax.inject.Named;
@@ -67,6 +68,14 @@ public class ConferenceManager {
 
         return l;
     }
+
+    @WebMethod
+    public int findIdAvailable() {
+        Query query = emf.createEntityManager().createQuery("SELECT c FROM ConferenceEntity c ORDER BY c.idConference DESC");
+        ConferenceEntity ce = (ConferenceEntity) query.getResultList().get(0);
+        return (1+ce.getIdConference());
+    }
+
 
     public void ajouter(ConferenceEntity conferenceEntity) {
         EntityManager em = emf.createEntityManager();

@@ -28,17 +28,21 @@ public class PresentationManager {
         return emf.createEntityManager().find(PresentationEntity.class,id);
     }
 
-
     @WebMethod
     public Collection<PresentationEntity> findAll() {
         Query query = emf.createEntityManager().createQuery("SELECT p FROM PresentationEntity p");
         return (Collection<PresentationEntity>) query.getResultList();
     }
 
+    @WebMethod
+    public int findIdAvailable() {
+        Query query = emf.createEntityManager().createQuery("SELECT p FROM PresentationEntity p ORDER BY p.idPresentation DESC");
+        PresentationEntity pe = (PresentationEntity) query.getResultList().get(0);
+        return (1+pe.getIdPresentation());
+    }
+
     public void ajouter(PresentationEntity presentationEntity) {
-
         EntityManager em = emf.createEntityManager();
-
         em.persist(presentationEntity);
     }
 }

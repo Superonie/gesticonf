@@ -70,9 +70,10 @@ public class PresentationBean {
 
     public void ajouter() {
         refConference = conferenceManager.findByName(refName).getIdConference();
+        idPresentation = presentationManager.findIdAvailable();
 
         PresentationEntity presentationEntity = new PresentationEntity();
-        presentationEntity.setIdEntity(idPresentation);
+        presentationEntity.setIdPresentation(idPresentation);
         presentationEntity.setHeureDeb(heureDebut);
         presentationEntity.setHeureFin(heureFin);
         presentationEntity.setSujet(sujet);

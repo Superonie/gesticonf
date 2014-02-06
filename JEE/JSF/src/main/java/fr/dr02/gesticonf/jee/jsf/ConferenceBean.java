@@ -66,6 +66,8 @@ public class ConferenceBean {
     }
 
     public void ajouter() {
+        idConference = conferenceManager.findIdAvailable() ;
+
         ConferenceEntity conferenceEntity = new ConferenceEntity();
         conferenceEntity.setIdConference(idConference);
         conferenceEntity.setNomConference(nomConference);

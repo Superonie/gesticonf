@@ -9,20 +9,20 @@ import javax.persistence.*;
 @Table(name = "PRESENTATION", schema = "PUBLIC", catalog="GESTICONF")
 public class PresentationEntity {
 
-    private int idEntity;
+    private int idPresentation;
     private String heureDeb;
     private String heureFin;
     private String sujet;
     private int refConference;
 
     @Id
-    @Column(name = "ID_ENTITY")
-    public int getIdEntity() {
-        return idEntity;
+    @Column(name = "ID_PRESENTATION")
+    public int getIdPresentation() {
+        return idPresentation;
     }
 
-    public void setIdEntity(int idEntity) {
-        this.idEntity = idEntity;
+    public void setIdPresentation(int idEntity) {
+        this.idPresentation = idEntity;
     }
 
     @Basic
@@ -67,6 +67,6 @@ public class PresentationEntity {
 
     @Override
     public String toString() {
-        return refConference+"/"+idEntity + " : " + heureDeb + " -> " + heureFin +" sur " + sujet;
+        return refConference+"/"+ idPresentation + " : " + heureDeb + " -> " + heureFin +" sur " + sujet;
     }
 }
