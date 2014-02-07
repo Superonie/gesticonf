@@ -49,4 +49,9 @@ public class PresentationManager {
         EntityManager em = emf.createEntityManager();
         em.persist(presentationEntity);
     }
-}
+
+    @WebMethod
+    public Collection<PresentationEntity> findAllByConf(int idConf) {
+        Query query = emf.createEntityManager().createQuery("SELECT p FROM PresentationEntity p WHERE p.refConference ="+idConf);
+        return (Collection<PresentationEntity>) query.getResultList();
+    }}

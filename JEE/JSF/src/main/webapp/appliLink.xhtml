@@ -2,14 +2,22 @@
 <!DOCTYPE html
         PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core" ><head>
     <title></title>
 </head>
 <body>
 
-<a href="dlepellet044://"> Lancer l'application Androïd </a>
-
+<a href="dlepellet044://2"> Lancer l'application Androïd </a>
+<ul>
+    <ui:repeat value="#{conferenceManager.findAll()}" var="conf">
+        <li>
+            <a href="dlepellet044.rcarabalo://univtln/#{conf.idConference}"> Lancer #{conf.nomConference} </a>
+        </li>
+    </ui:repeat>
+</ul>
 
 </body>
 </html>
