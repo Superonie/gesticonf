@@ -10,6 +10,7 @@
     <modules>
         <module>JPA</module>
         <module>JEE</module>
+        <module>GCM</module>
     </modules>
 
     <packaging>pom</packaging>

@@ -21,6 +21,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="GCM-0.1-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="GCM-0.1-SNAPSHOT (2)" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax:javaee-web-api:7.0" level="project" />
     <orderEntry type="module" module-name="EJB" scope="PROVIDED" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: fr.dr02.gesticonf.jee:EJB:ejb-client:client:0.1-SNAPSHOT" level="project" />
@@ -37,6 +39,9 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.javassist:javassist:3.15.0-GA" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.hibernate.common:hibernate-commons-annotations:4.0.1.Final" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: mysql:mysql-connector-java:5.1.21" level="project" />
+    <orderEntry type="module" module-name="GCM" />
+    <orderEntry type="library" name="Maven: com.ganyo:gcm-server:1.0.2" level="project" />
+    <orderEntry type="library" name="Maven: com.googlecode.json-simple:json-simple:1.1" level="project" />
   </component>
 </module>
 

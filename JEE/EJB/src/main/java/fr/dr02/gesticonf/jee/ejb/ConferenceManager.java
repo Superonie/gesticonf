@@ -65,7 +65,7 @@ public class ConferenceManager {
     public Collection<Integer> findIds() {
         Query query = emf.createEntityManager().createQuery("SELECT c FROM ConferenceEntity c");
 
-        List<Integer> l = new ArrayList<Integer>();
+        List<Integer> l = new ArrayList<>();
         for ( ConferenceEntity ce : (Collection<ConferenceEntity>) query.getResultList() )
             l.add(ce.getIdConference());
 

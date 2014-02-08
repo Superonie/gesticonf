@@ -38,9 +38,10 @@
 
     </dependencies>
 
+    <!-- Execution d'une classe Java depuis maven -->
+    <!--
     <build>
         <plugins>
-            <!-- Execution d'une classe Java depuis maven -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
@@ -58,6 +59,6 @@
             </plugin>
         </plugins>
     </build>
-
+    -->
 
 </project>

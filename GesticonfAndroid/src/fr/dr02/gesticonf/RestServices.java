@@ -1,5 +1,6 @@
 package fr.dr02.gesticonf;
 
+import android.content.Context;
 import android.util.Log;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -28,14 +29,18 @@ public class RestServices {
     }
 
     private RestServices() {}
-
-    private String ip = "http://192.168.1.11:8080";
-    private String urlGetConf = ip+"/RS/conferenceEntityManagerRS";
-    private String urlGetPresByConf = ip+"/RS/presentationEntityManagerRS";
-    private String urlAddDevice = ip+"/RS/deviceEntityManagerRS/addDevice";
+    private Context context;
+    private String ip = context.getResources().getString(R.string.ip_server);
+    private String urlGetConf = ip+context.getResources().getString(R.string.url_get_conf);
+    private String urlGetPresByConf = ip+context.getResources().getString(R.string.url_get_pres_by_conf);
+    private String urlAddDevice = ip+context.getResources().getString(R.string.url_add_device);
 
     public JSONObject currentConf = null;
     public JSONArray currentPresentations = null;
+
+    public void setContext(Context context) {
+        this.context = context;
+    }
 
     public void findConference(int idConf){
         HttpClient httpclient= new DefaultHttpClient();
@@ -47,56 +52,26 @@ public class RestServices {
             HttpEntity httpentity=httpresponse.getEntity();
 
             if (httpentity!=null){
-                InputStream inputstream=httpentity.getContent();
-                BufferedReader bufferedreader=new BufferedReader(
-                        new InputStreamReader(inputstream));
-                StringBuilder strBuilder=new StringBuilder();
-                String ligne=bufferedreader.readLine();
-                while (ligne!=null){
-                    strBuilder.append(ligne + "n");
-                    ligne=bufferedreader.readLine();
-                }
-                bufferedreader.close();
-
-                this.currentConf = new JSONObject(strBuilder.toString());
+                StringBuilder stringBuilder = streamToStrBuilder(httpentity.getContent());
+                this.currentConf = new JSONObject(stringBuilder.toString());
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        } catch (Exception e) {}
+
     }
 
     public void findPresentationsByConf(int idConf){
-        HttpClient httpclient= new DefaultHttpClient();
-
-        Log.i("TAG EUL", urlGetPresByConf+"/"+idConf);
-
+        HttpClient httpclient = new DefaultHttpClient();
         HttpGet httpGet = new HttpGet(urlGetPresByConf+"/"+idConf);
         HttpResponse httpresponse= null;
         try {
             httpresponse = httpclient.execute(httpGet);
-            HttpEntity httpentity=httpresponse.getEntity();
+            HttpEntity httpentity = httpresponse.getEntity();
 
             if (httpentity!=null){
-                InputStream inputstream=httpentity.getContent();
-                BufferedReader bufferedreader=new BufferedReader(
-                        new InputStreamReader(inputstream));
-                StringBuilder strBuilder=new StringBuilder();
-                String ligne=bufferedreader.readLine();
-                while (ligne!=null){
-                    strBuilder.append(ligne + "n");
-                    ligne=bufferedreader.readLine();
-                }
-                bufferedreader.close();
-
-                this.currentPresentations = new JSONArray(strBuilder.toString());
+                StringBuilder stringBuilder = streamToStrBuilder(httpentity.getContent());
+                this.currentPresentations = new JSONArray(stringBuilder.toString());
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        } catch (Exception e) {}
     }
 
     public void addDevice(String idDevice, String idRegistration){
@@ -116,6 +91,16 @@ public class RestServices {
         } catch (Exception e) {}
     }
 
+    public StringBuilder streamToStrBuilder(InputStream is) throws IOException {
+        BufferedReader bufferedreader = new BufferedReader(new InputStreamReader(is));
+        StringBuilder strBuilder = new StringBuilder();
+        String ligne;
+        while ( (ligne=bufferedreader.readLine())!=null)
+            strBuilder.append(ligne + "n");
+
+        bufferedreader.close();
+        return strBuilder;
+    }
 
 
 }

@@ -33,8 +33,9 @@ public class ConferenceActivity extends Activity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        register();
+        RestServices.getInstance().setContext(getApplicationContext());
         init();
+        register();
     }
 
     @Override

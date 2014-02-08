@@ -4,9 +4,7 @@ import com.google.android.gcm.server.Message;
 import com.google.android.gcm.server.Sender;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * Created by damien on 08/02/14.
