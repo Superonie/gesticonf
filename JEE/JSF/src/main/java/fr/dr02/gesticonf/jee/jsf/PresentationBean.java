@@ -1,7 +1,9 @@
 package fr.dr02.gesticonf.jee.jsf;
 
 import fr.dr02.gesticonf.jee.ejb.ConferenceManager;
+import fr.dr02.gesticonf.jee.ejb.DeviceManager;
 import fr.dr02.gesticonf.jee.ejb.PresentationManager;
+import fr.dr02.gesticonf.jee.gcm.NotificationSender;
 import fr.dr02.gesticonf.jpa.PresentationEntity;
 
 import javax.ejb.EJB;
@@ -22,6 +24,9 @@ public class PresentationBean {
 
     @EJB
     ConferenceManager conferenceManager;
+
+    @EJB
+    DeviceManager deviceManager;
 
     private int idPresentation;
     private String heureDebut;
@@ -80,6 +85,13 @@ public class PresentationBean {
         presentationEntity.setRefConference(refConference);
 
         this.presentationManager.ajouter(presentationEntity);
+    }
+
+
+    public void modifierHoraire() {
+        NotificationSender.getInstance().setListRegistrationIds(deviceManager.findAllRegistrationsIds());
+        NotificationSender.getInstance().sendNotification();
+
     }
 
 }

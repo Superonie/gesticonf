@@ -14,6 +14,9 @@
 
     <packaging>pom</packaging>
 
+    <dependencies>
+    </dependencies>
+
     <name>Projet GestiConf</name>
     <inceptionYear>2014</inceptionYear>
 

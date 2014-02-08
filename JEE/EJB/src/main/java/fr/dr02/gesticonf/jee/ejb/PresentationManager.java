@@ -25,17 +25,21 @@ public class PresentationManager {
     private EntityManagerFactory emf;
 
     @WebMethod
+    // Renvoie la présentation dont l'id est égal à "id"
     public PresentationEntity find(int id) {
         return emf.createEntityManager().find(PresentationEntity.class,id);
     }
 
     @WebMethod
+    // Renvoie une collection contenant toutes les présentations existantes.
     public Collection<PresentationEntity> findAll() {
         Query query = emf.createEntityManager().createQuery("SELECT p FROM PresentationEntity p");
         return (Collection<PresentationEntity>) query.getResultList();
     }
 
     @WebMethod
+    // Renvoie un identifiant utilisable pour rendre persistant une nouvelle conférence.
+    // Concrètement, on ajoute au maximum des ids trouvés dans la base de données.
     public int findIdAvailable() {
         Query query = emf.createEntityManager().createQuery("SELECT p FROM PresentationEntity p ORDER BY p.idPresentation DESC");
         List<PresentationEntity> l = query.getResultList();
@@ -45,12 +49,14 @@ public class PresentationManager {
             return 0;
     }
 
+    // Rend persistant la présentation donnée en paramètre
     public void ajouter(PresentationEntity presentationEntity) {
         EntityManager em = emf.createEntityManager();
         em.persist(presentationEntity);
     }
 
     @WebMethod
+    // Renvoie toutes les présentations liées à la conférence dont l'id est égal à "idConf"
     public Collection<PresentationEntity> findAllByConf(int idConf) {
         Query query = emf.createEntityManager().createQuery("SELECT p FROM PresentationEntity p WHERE p.refConference ="+idConf);
         return (Collection<PresentationEntity>) query.getResultList();

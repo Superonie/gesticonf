@@ -12,6 +12,7 @@
     <artifactId>JEE</artifactId>
     <version>0.1-SNAPSHOT</version>
     <modules>
+        <module>GCM</module>
         <module>EAR</module>
         <module>EJB</module>
         <module>JSF</module>

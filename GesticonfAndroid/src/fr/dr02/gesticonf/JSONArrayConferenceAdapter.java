@@ -1,4 +1,4 @@
-package fr.dr02.gesticonf.android;
+package fr.dr02.gesticonf;
 
 import android.content.Context;
 import android.provider.AlarmClock;
@@ -10,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.RadioButton;
 import android.widget.TextClock;
 import android.widget.TextView;
+import fr.dr02.gesticonf.R;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,28 +34,23 @@ public class JSONArrayConferenceAdapter extends BaseAdapter {
         this.selectedItemPosition = -1;
     }
 
-    public int getCount()
-    {
+    public int getCount() {
         return items.length();
     }
 
-    public Object getItem(int position)
-    {
+    public Object getItem(int position) {
         return position;
     }
 
-    public long getItemId(int position)
-    {
+    public long getItemId(int position) {
         return position;
     }
 
-    public View getView(int position, View convertView, ViewGroup parent)
-    {
+    public View getView(int position, View convertView, ViewGroup parent)  {
         View view = convertView;
         group = parent;
 
-        if (view == null)
-        {
+        if (view == null) {
             LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = vi.inflate(R.layout.lv_item, null);
         }
@@ -64,21 +60,16 @@ public class JSONArrayConferenceAdapter extends BaseAdapter {
         String heureDebut = null;
         String heureFin = null;
 
-        try
-        {
+        try {
             JSONObject jsonObject = items.getJSONObject(position);
             sujet = jsonObject.getString("sujet");
             heureDebut = jsonObject.getString("heureDeb");
             heureFin = jsonObject.getString("heureFin");
 
         }
-        catch (JSONException e)
-        {
-            e.printStackTrace();
-        }
+        catch (JSONException e) {}
 
-        if (sujet != null)
-        {
+        if (sujet != null) {
             TextView tvSujet = (TextView) view.findViewById(R.id.sujet_presentation);
             TextView tvHeureD = (TextView) view.findViewById(R.id.heure_debut);
             TextView tvHeureF = (TextView) view.findViewById(R.id.heure_fin);
@@ -86,14 +77,7 @@ public class JSONArrayConferenceAdapter extends BaseAdapter {
             tvSujet.setText(sujet);
             tvHeureD.setText(heureDebut);
             tvHeureF.setText(heureFin);
-
-
-
         }
-
-
         return view;
     }
-
-
 }

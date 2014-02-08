@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core" ><head>
+    <title>Liste Devices</title>
+</head>
+<body>
+<ul>
+    <ui:repeat value="#{deviceManager.findAll()}" var="device">
+        <li>
+            #{device}
+        </li>
+    </ui:repeat>
+</ul>
+
+<h:form>
+    <h:commandButton id="modifier" value="Modification Horaire" action="#{presentationBean.modifierHoraire}"/>
+</h:form>
+
+<h:form>
+    <h:commandButton id="reset" value="Reset Devices" action="#{deviceBean.reset}"/>
+</h:form>
+
+</body>
+</html>

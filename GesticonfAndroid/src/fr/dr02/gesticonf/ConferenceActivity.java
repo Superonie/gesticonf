@@ -1,15 +1,18 @@
-package fr.dr02.gesticonf.android;
+package fr.dr02.gesticonf;
 
 import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
+import com.google.android.gcm.GCMRegistrar;
+import fr.dr02.gesticonf.R;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,6 +27,13 @@ public class ConferenceActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //TODO Perfectionnable
+        // Utilisation d'Internet dans le thread principal
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        register();
         init();
     }
 
@@ -33,17 +43,19 @@ public class ConferenceActivity extends Activity {
         init();
     }
 
+    public void register() {
+        GCMRegistrar.checkDevice(this);
+        GCMRegistrar.checkManifest(this);
+        String androidId = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+        String registrationId = GCMRegistrar.getRegistrationId(this);
+        GCMRegistrar.register(this,getResources().getString(R.string.id_project));
+        RestServices.getInstance().addDevice(androidId,registrationId);
+    }
+
     public void init() {
-
-        //TODO Perfectionnable
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-
         Uri data = getIntent().getData();
         if (data != null) {
-
             List<String> params = data.getPathSegments();
-
             if (params.size() > 0) { 
                 int idConf = Integer.valueOf(params.get(0));
                 RestServices.getInstance().findConference(idConf);
@@ -51,7 +63,6 @@ public class ConferenceActivity extends Activity {
                 LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 View view = (View) inflater.inflate(R.layout.conference_view, null);
                 setContentView(view);
-
                 try {
                     tvNom = (TextView) findViewById(R.id.nom_conf);
                     tvTheme = (TextView) findViewById(R.id.theme_conf);
@@ -70,12 +81,7 @@ public class ConferenceActivity extends Activity {
                     JSONArrayConferenceAdapter jsonArrayAdapter = new JSONArrayConferenceAdapter(this, currentPresentations);
                     lvPresentations.setAdapter(jsonArrayAdapter);
 
-
-                    Log.i("TAG LIATELLE", currentPresentations.toString());
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                } catch (JSONException e) {}
             }
         }
 

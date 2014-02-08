@@ -21,6 +21,7 @@ public class ConferenceEntityManagerRS {
 
     @GET
     @Produces({MediaType.APPLICATION_JSON})
+    // Renvoie une collection contenant toutes les conférences existantes
     public Collection<ConferenceEntity> findAll() {
         return conferenceManager.findAll();
     }
@@ -28,6 +29,7 @@ public class ConferenceEntityManagerRS {
     @GET
     @Path("/{index}")
     @Produces({MediaType.APPLICATION_JSON})
+    // Renvoie la collection dont l'id est "index"
     public ConferenceEntity getConference(@PathParam("index") int index)
     {
         return conferenceManager.find(index);

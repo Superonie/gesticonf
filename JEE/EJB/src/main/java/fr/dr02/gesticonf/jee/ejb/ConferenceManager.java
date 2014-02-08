@@ -28,22 +28,26 @@ public class ConferenceManager {
     private EntityManagerFactory emf;
 
     @WebMethod
+    // Renvoie la conférence dont l'id est égal à "id"
     public ConferenceEntity find(int id) {
         return emf.createEntityManager().find(ConferenceEntity.class,id);
     }
 
     @WebMethod
+    // Renvoie une collection contenant toutes les conférences
     public Collection<ConferenceEntity> findAll() {
         Query query = emf.createEntityManager().createQuery("SELECT c FROM ConferenceEntity c");
         return (Collection<ConferenceEntity>) query.getResultList();
     }
 
+    // Renvoie la conférence dont le nom est égal à "nom"
     public ConferenceEntity findByName(String nom) {
         Query query = emf.createEntityManager().createQuery("SELECT c FROM ConferenceEntity c WHERE c.nomConference = '"+ nom + "'");
         return (ConferenceEntity) query.getSingleResult();
     }
 
     @WebMethod
+    // Renvoie la liste de tous les noms de conférences triés par ordre alpha-numérique
     public Collection<String> findAllNames() {
         Query query = emf.createEntityManager().createQuery("SELECT c FROM ConferenceEntity c");
 
@@ -57,6 +61,7 @@ public class ConferenceManager {
     }
 
     @WebMethod
+    // Renvoie la liste de tous les identifiants de conférences triés par ordre croissant
     public Collection<Integer> findIds() {
         Query query = emf.createEntityManager().createQuery("SELECT c FROM ConferenceEntity c");
 
@@ -70,6 +75,8 @@ public class ConferenceManager {
     }
 
     @WebMethod
+    // Renvoie un identifiant utilisable pour rendre persistant une nouvelle conférence.
+    // Concrètement, on ajoute au maximum des ids trouvés dans la base de données.
     public int findIdAvailable() {
         Query query = emf.createEntityManager().createQuery("SELECT c FROM ConferenceEntity c ORDER BY c.idConference DESC");
         List<ConferenceEntity> l = query.getResultList();
@@ -79,7 +86,7 @@ public class ConferenceManager {
             return 0;
     }
 
-
+    // Rend persistant une conférence
     public void ajouter(ConferenceEntity conferenceEntity) {
         EntityManager em = emf.createEntityManager();
         em.persist(conferenceEntity);

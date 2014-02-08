@@ -26,6 +26,7 @@ public class PresentationEntityManagerRS {
     @GET
     @Path("/{index}")
     @Produces({MediaType.APPLICATION_JSON})
+    // Renvoie une collection contenant toutes les présentations liées à la conférence dont l'id est égal à "index"
     public Collection<PresentationEntity> getPresentationsByConf(@PathParam("index") int index)
     {
         return presentationManager.findAllByConf(index);
