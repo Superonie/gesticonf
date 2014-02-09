@@ -48,13 +48,14 @@ public class GCMIntentService extends GCMBaseIntentService {
 
     @Override
     protected void onMessage(Context context, Intent i) {
-        Log.i("TAG LIATELLE", "RECIEVED A MESSAGE");
         Bundle b = i.getExtras();
         String message = b.getString("body");
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         Notification notification;
-        PendingIntent intent = null;// = YourPendingIntent;
+        //PendingIntent intent = null;// = YourPendingIntent;
+        PendingIntent intent = PendingIntent.getActivity(context, 0, i, android.content.Intent.FLAG_ACTIVITY_NEW_TASK);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
         {
             Notification.Builder builder = new Notification.Builder(context);

@@ -29,7 +29,7 @@ public class NotificationSender {
     private final String serverKey = "AIzaSyDy8UV1L0udj9M4nqjTt2XojfO_usFEEAs";
 
     // Fonction d'envoi de la notification
-    public void sendNotification() {
+    public void sendNotification(String body) {
         // Pour chaque device concerné,
         for (String idRegistration : listRegistrationIds) {
             try {
@@ -37,7 +37,7 @@ public class NotificationSender {
                 Message message = new Message.Builder().collapseKey("1")
                         //.timeToLive(3)
                         //.delayWhileIdle(true)
-                        .addData("body","this text will be seen in notification bar!!")
+                        .addData("body",body)
                         //.addData("registration_id", idRegistration)
                         .build();
                 sender.send(message, idRegistration, 1);

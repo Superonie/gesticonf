@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
+import javax.ws.rs.GET;
 import java.util.Collection;
 import java.util.List;
 
@@ -60,4 +61,38 @@ public class PresentationManager {
     public Collection<PresentationEntity> findAllByConf(int idConf) {
         Query query = emf.createEntityManager().createQuery("SELECT p FROM PresentationEntity p WHERE p.refConference ="+idConf);
         return (Collection<PresentationEntity>) query.getResultList();
-    }}
+    }
+
+    @WebMethod
+    @GET
+    // Met à jour la base de données à partir de l'entité donnée en paramètre
+    public void update(PresentationEntity presentationEntity) {
+        emf.createEntityManager().merge(presentationEntity);
+    }
+
+    @WebMethod
+    @GET
+    // Met à jour la base de données à partir de l'entité donnée en paramètre
+    public void delete(PresentationEntity presentationEntity) {
+        EntityManager em = emf.createEntityManager();
+        PresentationEntity toBeRemoved = em.merge(presentationEntity);
+        em.remove(toBeRemoved);
+        em.flush();
+    }
+
+    @WebMethod
+    // Supprime tous les présentations persistantes
+    public void delete(int index) {
+        Query query = emf.createEntityManager().createQuery("DELETE FROM PresentationEntity p WHERE p.idPresentation ="+index);
+        query.executeUpdate();
+    }
+
+    @WebMethod
+    // Supprime tous les présentations persistantes
+    public void reset() {
+        Query query = emf.createEntityManager().createQuery("DELETE FROM PresentationEntity p");
+        query.executeUpdate();
+    }
+
+
+}

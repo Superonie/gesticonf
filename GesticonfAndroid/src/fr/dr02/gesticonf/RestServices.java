@@ -29,17 +29,17 @@ public class RestServices {
     }
 
     private RestServices() {}
-    private Context context;
-    private String ip = context.getResources().getString(R.string.ip_server);
-    private String urlGetConf = ip+context.getResources().getString(R.string.url_get_conf);
-    private String urlGetPresByConf = ip+context.getResources().getString(R.string.url_get_pres_by_conf);
-    private String urlAddDevice = ip+context.getResources().getString(R.string.url_add_device);
+
+    private String ip, urlGetConf, urlGetPresByConf, urlAddDevice;
 
     public JSONObject currentConf = null;
     public JSONArray currentPresentations = null;
 
-    public void setContext(Context context) {
-        this.context = context;
+    public void init(String ip, String urlGetConf, String urlGetPresByConf, String urlAddDevice ) {
+        this.ip = ip;
+        this.urlGetConf = urlGetConf;
+        this.urlGetPresByConf = urlGetPresByConf;
+        this.urlAddDevice = urlAddDevice;
     }
 
     public void findConference(int idConf){
@@ -55,7 +55,7 @@ public class RestServices {
                 StringBuilder stringBuilder = streamToStrBuilder(httpentity.getContent());
                 this.currentConf = new JSONObject(stringBuilder.toString());
             }
-        } catch (Exception e) {}
+        } catch (Exception e) {e.printStackTrace();}
 
     }
 
@@ -71,10 +71,10 @@ public class RestServices {
                 StringBuilder stringBuilder = streamToStrBuilder(httpentity.getContent());
                 this.currentPresentations = new JSONArray(stringBuilder.toString());
             }
-        } catch (Exception e) {}
+        } catch (Exception e) {e.printStackTrace();}
     }
 
-    public void addDevice(String idDevice, String idRegistration){
+    public void addDevice(String idDevice, String idRegistration, int refConference){
         try {
             HttpClient httpclient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(urlAddDevice);
@@ -82,13 +82,14 @@ public class RestServices {
             JSONObject jsonObject = new JSONObject();
             jsonObject.accumulate("idDevice", idDevice);
             jsonObject.accumulate("idRegistration", idRegistration);
+            jsonObject.accumulate("refConference",refConference);
             StringEntity se = new StringEntity(jsonObject.toString());
             httpPost.setEntity(se);
             httpPost.setHeader("Accept", "application/json");
             httpPost.setHeader("Content-type", "application/json");
 
             httpclient.execute(httpPost);
-        } catch (Exception e) {}
+        } catch (Exception e) {e.printStackTrace();}
     }
 
     public StringBuilder streamToStrBuilder(InputStream is) throws IOException {

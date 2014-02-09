@@ -91,4 +91,10 @@ public class ConferenceManager {
         EntityManager em = emf.createEntityManager();
         em.persist(conferenceEntity);
     }
+
+    // Supprime toutes les conférences persistantes
+    public void reset() {
+        Query query = emf.createEntityManager().createQuery("DELETE FROM ConferenceEntity c");
+        query.executeUpdate();
+    }
 }

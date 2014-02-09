@@ -10,9 +10,14 @@ import javax.persistence.*;
 public class PresentationEntity {
 
     private int idPresentation;
+    private String date;
     private String heureDeb;
     private String heureFin;
     private String sujet;
+    private String lieu;
+    private String orateurs;
+    private double latitude;
+    private double longitude;
     private int refConference;
 
     @Id
@@ -24,6 +29,12 @@ public class PresentationEntity {
     public void setIdPresentation(int idEntity) {
         this.idPresentation = idEntity;
     }
+
+    @Basic
+    @Column(name = "DATE_PRESENTATION")
+    public String getDate() {return date;}
+
+    public void setDate(String date) { this.date = date; }
 
     @Basic
     @Column(name = "HEURE_DEBUT")
@@ -56,6 +67,28 @@ public class PresentationEntity {
     }
 
     @Basic
+    @Column(name = "LIEU")
+    public String getLieu() { return lieu; }
+
+    public void setLieu(String lieu) { this.lieu = lieu; }
+
+    public String getOrateurs() { return orateurs; }
+
+    public void setOrateurs(String orateurs) { this.orateurs = orateurs; }
+
+    @Basic
+    @Column(name = "LATITUDE")
+    public double getLatitude() { return latitude; }
+
+    public void setLatitude(double latitude) { this.latitude = latitude; }
+
+    @Basic
+    @Column(name = "LONGITUDE")
+    public double getLongitude() { return longitude; }
+
+    public void setLongitude(double longitude) { this.longitude = longitude; }
+
+    @Basic
     @Column(name = "REF_CONFERENCE")
     public int getRefConference() {
         return refConference;
@@ -67,6 +100,6 @@ public class PresentationEntity {
 
     @Override
     public String toString() {
-        return refConference+"/"+ idPresentation + " : " + heureDeb + " -> " + heureFin +" sur " + sujet;
+        return refConference+"/"+ idPresentation + " : le " + date + " de " + heureDeb + " à " + heureFin +" sur " + sujet + " par " + orateurs + " en "+ lieu;
     }
 }

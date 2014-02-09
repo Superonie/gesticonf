@@ -6,11 +6,13 @@ import javax.persistence.*;
  * Created by damien on 08/02/14.
  */
 @Entity
+@IdClass(DeviceEntityPK.class)
 @Table(name = "DEVICE", schema = "PUBLIC", catalog="GESTICONF")
 public class DeviceEntity {
 
     private String idDevice;
     private String idRegistration;
+    private int refConference;
 
     @Id
     @Column(name="ID_DEVICE")
@@ -32,8 +34,14 @@ public class DeviceEntity {
         this.idRegistration = idRegistration;
     }
 
+    @Id
+    @Column(name="REF_CONFERENCE")
+    public int getRefConference() { return refConference; }
+
+    public void setRefConference(int refConference) { this.refConference = refConference; }
+
     @Override
     public String toString() {
-        return idDevice+" "+idRegistration;
+        return "Conférence : "+refConference+" -> "+idDevice+" = "+idRegistration.substring(0,20);
     }
 }

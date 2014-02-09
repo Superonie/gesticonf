@@ -20,6 +20,7 @@ public class DeviceBean {
 
     private String idDevice;
     private String idRegistration;
+    private int refConference;
 
 
     public String getIdDevice() {
@@ -37,6 +38,10 @@ public class DeviceBean {
     public void setIdRegistration(String idRegistration) {
         this.idRegistration = idRegistration;
     }
+
+    public int getRefConference() { return refConference; }
+
+    public void setRefConference(int refConference) { this.refConference = refConference; }
 
     public void reset() {
         deviceManager.reset();

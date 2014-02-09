@@ -38,27 +38,4 @@
 
     </dependencies>
 
-    <!-- Execution d'une classe Java depuis maven -->
-    <!--
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>1.2.1</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>java</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <mainClass>fr.dr02.gesticonf.jpa.Test</mainClass>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-    -->
-
 </project>

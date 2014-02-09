@@ -10,12 +10,29 @@
     <title>Liste Presentations</title>
 </head>
 <body>
+<h:form>
+
 <ul>
     <ui:repeat value="#{presentationManager.findAll()}" var="pres">
         <li>
             #{pres}
+
+            <h:commandButton value="Supprimer" action="#{presentationBean.delete}" >
+                <f:param name="idPresentation" value="#{pres.idPresentation}"/>
+            </h:commandButton>
+
+            <h:commandButton  value="Modifier" action="#{presentationBean.update}" >
+                <f:param name="idPresentation" value="#{pres.idPresentation}"/>
+            </h:commandButton>
         </li>
     </ui:repeat>
 </ul>
+Nouveau Lieu : <h:inputText value="#{presentationBean.lieu}"></h:inputText>
+Nouvelle Heure Début : <h:inputText value="#{presentationBean.heureDebut}"></h:inputText>
+Nouvelle Heure Fin : <h:inputText value="#{presentationBean.heureFin}"></h:inputText>
+
+    <h:commandButton value="Reset Presentation" action="#{presentationBean.reset}"/>
+</h:form>
+
 </body>
 </html>
