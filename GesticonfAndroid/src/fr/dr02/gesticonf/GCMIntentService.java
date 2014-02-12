@@ -53,8 +53,10 @@ public class GCMIntentService extends GCMBaseIntentService {
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         Notification notification;
+        Intent inte = new Intent(context,ConferenceActivity.class);
+
         //PendingIntent intent = null;// = YourPendingIntent;
-        PendingIntent intent = PendingIntent.getActivity(context, 0, i, android.content.Intent.FLAG_ACTIVITY_NEW_TASK);
+        PendingIntent intent = PendingIntent.getActivity(context, 0, inte, android.content.Intent.FLAG_ACTIVITY_NEW_TASK);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
         {
@@ -64,7 +66,7 @@ public class GCMIntentService extends GCMBaseIntentService {
             builder.setWhen(System.currentTimeMillis());
             builder.setContentTitle(context.getString(R.string.app_name));
             builder.setContentText(message);
-           // builder.setContentIntent(i);
+            builder.setContentIntent(intent);
             notification = new Notification.BigTextStyle(builder).bigText(message).build();
         }
         else

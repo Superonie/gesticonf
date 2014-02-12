@@ -129,24 +129,41 @@ public class PresentationBean {
     public void update() {
         // On récupère la présentation concernée
         // On génère le message contenant les informations qui sera le contenu de la notification
-       /* Map<String,String> paramsMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        Map<String,String> paramsMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         int idPresentation = Integer.valueOf(paramsMap.get("idPresentation"));
-        PresentationEntity pe = presentationManager.find(idPresentation);*/
-       // String message = "La présentation sur "+pe.getSujet()+" prévue de "+pe.getHeureDeb()+" à "+pe.getHeureFin()+
-         //       " en "+pe.getLieu()+" est décalée de "+heureDebut+" à "+heureFin+" et se déroulera en "+lieu;
+        PresentationEntity pe = presentationManager.find(idPresentation);
+        String message;
 
-        String message = heureDebut+" à "+heureFin+" et se déroulera en "+lieu;
+        // Soit seul le lieu change
+        if ( heureDebut.length() == 0 || heureFin.length() == 0 ) {
+            message = "La présentation sur "+pe.getSujet()+" prévue de "+pe.getHeureDeb()+" à "+pe.getHeureFin()+
+                    " en "+pe.getLieu()+" se déroulera en "+lieu;
+            pe.setLieu(lieu);
+        }
 
+        // Soit les horaires changent
+        else if ( lieu.length() == 0 ) {
+            message = "La présentation sur "+pe.getSujet()+" prévue de "+pe.getHeureDeb()+" à "+pe.getHeureFin()+
+                    " en "+pe.getLieu()+" est décalée de "+heureDebut+" à "+heureFin;
+            pe.setHeureDeb(heureDebut);
+            pe.setHeureFin(heureFin);
+        }
+
+        // Soit tout change
+        else {
+            message = "La présentation sur "+pe.getSujet()+" prévue de "+pe.getHeureDeb()+" à "+pe.getHeureFin()+
+                    " en "+pe.getLieu()+" est décalée de "+heureDebut+" à "+heureFin+" et se déroulera en "+lieu;
+            pe.setLieu(lieu);
+            pe.setHeureDeb(heureDebut);
+            pe.setHeureFin(heureFin);
+        }
 
         // On envoie la notification à tous les devices
         NotificationSender.getInstance().setListRegistrationIds(deviceManager.findAllRegistrationsIds());
         NotificationSender.getInstance().sendNotification(message);
 
         // On met à jour la base de données à partir des informations reçues
-        /*pe.setLieu(lieu);
-        pe.setHeureDeb(heureDebut);
-        pe.setHeureFin(heureFin);
-        presentationManager.update(pe);*/
+        presentationManager.update(pe);
 
         // On réinitialise les données
         //pe.setLieu("");

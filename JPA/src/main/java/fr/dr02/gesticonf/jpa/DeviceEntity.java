@@ -42,6 +42,6 @@ public class DeviceEntity {
 
     @Override
     public String toString() {
-        return "Conférence : "+refConference+" -> "+idDevice+" = "+idRegistration.substring(0,20);
+        return "Conférence : "+refConference+" -> "+idDevice+" = "+idRegistration;
     }
 }
