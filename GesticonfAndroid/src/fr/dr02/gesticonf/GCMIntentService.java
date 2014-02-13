@@ -5,7 +5,6 @@ package fr.dr02.gesticonf;
  */
 
 
-import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -13,18 +12,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Vibrator;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.TaskStackBuilder;
-import android.util.Log;
 import com.google.android.gcm.GCMBaseIntentService;
-import com.google.android.gcm.GCMRegistrar;
-import fr.dr02.gesticonf.R;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-
-import java.io.IOException;
 
 /**
  * Intent which is handling GCM messages and registrations. <br/>

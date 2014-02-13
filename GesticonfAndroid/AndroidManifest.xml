@@ -3,7 +3,7 @@
           package="fr.dr02.gesticonf"
           android:versionCode="1"
           android:versionName="1.0">
-    <uses-sdk android:minSdkVersion="11"/>
+    <uses-sdk android:minSdkVersion="14"/>
 
     <uses-permission android:name="android.permission.INTERNET" />
     <permission android:name="fr.dr02.gesticonf.permission.C2D_MESSAGE" android:protectionLevel="signature" />
@@ -35,7 +35,9 @@
 
         <activity android:name="fr.dr02.gesticonf.ConferenceActivity"
                   android:screenOrientation="landscape"
-                  android:label="@string/app_name">
+                  android:label="@string/app_name"
+                  android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
+
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

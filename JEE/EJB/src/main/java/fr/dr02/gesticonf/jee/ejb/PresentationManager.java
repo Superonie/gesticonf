@@ -12,6 +12,7 @@ import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
 import javax.ws.rs.GET;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -60,7 +61,9 @@ public class PresentationManager {
     // Renvoie toutes les présentations liées à la conférence dont l'id est égal à "idConf"
     public Collection<PresentationEntity> findAllByConf(int idConf) {
         Query query = emf.createEntityManager().createQuery("SELECT p FROM PresentationEntity p WHERE p.refConference ="+idConf);
-        return (Collection<PresentationEntity>) query.getResultList();
+        List<PresentationEntity> l = query.getResultList();
+        Collections.sort(l);
+        return l;
     }
 
     @WebMethod

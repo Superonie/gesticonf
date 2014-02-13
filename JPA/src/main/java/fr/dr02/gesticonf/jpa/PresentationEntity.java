@@ -7,7 +7,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "PRESENTATION", schema = "PUBLIC", catalog="GESTICONF")
-public class PresentationEntity {
+public class PresentationEntity implements Comparable {
 
     private int idPresentation;
     private String date;
@@ -101,5 +101,23 @@ public class PresentationEntity {
     @Override
     public String toString() {
         return refConference+"/"+ idPresentation + " : le " + date + " de " + heureDeb + " à " + heureFin +" sur " + sujet + " par " + orateurs + " en "+ lieu;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        if ( o instanceof PresentationEntity ) {
+            PresentationEntity l = (PresentationEntity) o;
+            int compDate = l.getDate().compareTo(this.getDate());
+
+            // On trie par rapport aux dates si possible
+            if ( compDate != 0 )
+                return -compDate;
+                // Si deux présentations ont lieu le même jour, on trie par rapport aux heures de début
+            else
+                return l.getHeureDeb().compareTo(this.getHeureDeb());
+
+        }
+
+        return 0;
     }
 }
