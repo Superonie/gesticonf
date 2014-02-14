@@ -14,7 +14,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Medium Text"
             android:id="@+id/filtre_conf" android:layout_toRightOf="@+id/return_button" android:layout_alignParentTop="true"/>
-    <Button
+    <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"

@@ -1,7 +1,9 @@
 package fr.dr02.gesticonf;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -10,10 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+import android.widget.*;
 import com.google.android.gcm.GCMRegistrar;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,7 +22,7 @@ public class ConferenceActivity extends Activity {
 
     TextView tvNom, tvTheme, tvDate;
     ListView lvPresentations;
-    Button returnButton;
+    ImageButton returnButton;
     private int idConf = -1;
     private static ConferenceActivity ourInstance;
 
@@ -148,7 +147,7 @@ public class ConferenceActivity extends Activity {
                 tvNom = (TextView) findViewById(R.id.nom_conf);
                 tvTheme = (TextView) findViewById(R.id.theme_conf);
                 tvDate = (TextView) findViewById(R.id.filtre_conf);
-                returnButton = (Button) findViewById(R.id.return_button);
+                returnButton = (ImageButton) findViewById(R.id.return_button);
                 disableReturnButton();
 
                 returnButton.setOnClickListener(new View.OnClickListener() {
@@ -197,11 +196,38 @@ public class ConferenceActivity extends Activity {
 
     public void enableReturnButton() {
         returnButton.setEnabled(true);
-        returnButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_menu_revert_enabled));
+        returnButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_menu_revert_enabled));
     }
 
     public void disableReturnButton() {
         returnButton.setEnabled(false);
-        returnButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_menu_revert));
+        returnButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_menu_revert));
+    }
+
+    public void createResumePopUp(String title, String message) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+        LinearLayout lila= new LinearLayout(this);
+        lila.setOrientation(1); //1 is for vertical orientation
+
+        final TextView tvTitle = new TextView(this);
+        tvTitle.setText(title);
+        final TextView tvMessage = new TextView(this);
+        tvMessage.setText(message);
+        lila.addView(tvTitle);
+        lila.addView(tvMessage);
+
+        // set dialog message
+        alertDialogBuilder
+                .setCancelable(true)
+                .setView(lila)
+                .setPositiveButton("Fermer",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        dialog.dismiss();;
+                    }
+                });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 }

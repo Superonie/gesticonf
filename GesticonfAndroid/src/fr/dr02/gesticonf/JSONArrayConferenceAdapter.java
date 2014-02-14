@@ -11,6 +11,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 /**
  * Created by damien on 07/02/14.
  */
@@ -20,10 +27,12 @@ public class JSONArrayConferenceAdapter extends BaseAdapter {
     private JSONArray items;
     private Context context;
     private String selectedItemID;
+    private String currentDate;
     private int selectedItemPosition;
 
     public JSONArrayConferenceAdapter(Context ctx, JSONArray array) {
         super();
+        this.currentDate = "";
         this.items = array;
         this.context = ctx;
         this.selectedItemPosition = -1;
@@ -56,6 +65,7 @@ public class JSONArrayConferenceAdapter extends BaseAdapter {
         String heureFin = null;
         String date = null;
         String orateurs = null;
+        String resume = null;
         String lieu = null;
 
         try {
@@ -65,12 +75,16 @@ public class JSONArrayConferenceAdapter extends BaseAdapter {
             heureFin = jsonObject.getString("heureFin");
             date = jsonObject.getString("date");
             lieu = jsonObject.getString("lieu");
+            resume = jsonObject.getString("resume");
             orateurs = jsonObject.getString("orateurs");
 
-            Log.i("TAG EUL","OBJ "+jsonObject.toString());
+
+            Log.i("TAG EUL",currentDate+" !");
 
 
         } catch (JSONException e) { }
+
+
 
         TextView tvSujet = (TextView) view.findViewById(R.id.sujet_presentation);
         TextView tvHeureD = (TextView) view.findViewById(R.id.heure_debut);
@@ -81,10 +95,19 @@ public class JSONArrayConferenceAdapter extends BaseAdapter {
 
         Log.i("TAG EUL", sujet + " " + heureDebut + " " + heureFin + " " + date + " " + orateurs + " " + lieu);
 
+
         tvSujet.setText(sujet);
         tvHeureD.setText(heureDebut);
         tvHeureF.setText(heureFin);
-        tvDate.setText(date);
+
+        // Si c'est une nouvelle date, on l'écrit et on crée un espacement visuel
+        if ( !date.equals(currentDate) ) {
+            tvDate.setText(reformatDate(date));
+            view.setPadding(0,30,0,0);
+        }
+
+        currentDate = date;
+
         tvOrateurs.setText(orateurs);
         tvLieu.setText(lieu);
 
@@ -94,6 +117,27 @@ public class JSONArrayConferenceAdapter extends BaseAdapter {
         LieuListener ll = new LieuListener();
         tvLieu.setOnClickListener(ll);
 
+        ResumeListener rl = new ResumeListener(sujet,resume);
+        tvSujet.setOnClickListener(rl);
+
+
         return view;
+    }
+
+
+
+    // convert 2014-01-01 en
+    public String reformatDate(String date) {
+        String dFormatee = "";
+
+        try {
+            Date d = DateFormat.getInstance().parse(date);
+            DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss", Locale.FRENCH);
+            dFormatee = df.format(d);
+
+            Log.i("TAG LIATELLE",dFormatee);
+        } catch (ParseException e) { e.printStackTrace(); }
+
+        return dFormatee;
     }
 }
