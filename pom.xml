@@ -11,6 +11,7 @@
         <module>JPA</module>
         <module>JEE</module>
         <module>GCM</module>
+        <module>GesticonfAndroid</module>
     </modules>
 
     <packaging>pom</packaging>
