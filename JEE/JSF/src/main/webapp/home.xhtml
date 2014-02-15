@@ -2,13 +2,21 @@
 <!DOCTYPE html
         PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+      xmlns:h="http://java.sun.com/jsf/html">
+
 <head>
     <title></title>
 </head>
 <body>
 
-Ceci est un heaume
+<h:form rendered="#{loginBean.isAdmin()}">
+    <h:commandButton action="addConference" value="Créer une conférence" /><br/>
+    <h:commandButton action="addPresentation" value="Créer une présentation" /><br/>
+    <h:commandButton action="listPresentation" value="Modifier une présentation existante" /><br/>
+    <h:commandButton action="listConference" value="Lister les conférences existantes" />
 
+
+</h:form>
 </body>
 </html>

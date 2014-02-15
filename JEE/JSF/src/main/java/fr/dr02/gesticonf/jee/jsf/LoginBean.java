@@ -4,18 +4,16 @@ package fr.dr02.gesticonf.jee.jsf;
  * Created by damien on 15/02/14.
  */
 import java.io.Serializable;
+import javax.ejb.Stateless;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
-@ManagedBean(name = "loginBean")
+@ManagedBean
+@Stateless
 @SessionScoped
-/**
- *
- * @author User
- */
 public class LoginBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -68,6 +66,16 @@ public class LoginBean implements Serializable {
             //message = "Invalid Login. Please Try Again!";
             return "login";
         }
+    }
+
+    public boolean isAdmin() {
+        HttpSession session = Util.getSession();
+        if ( session == null )
+            return false;
+        else if ( session.getAttribute("username") == null )
+            return false;
+        else
+            return session.getAttribute("username").equals("admin");
     }
 
     public String logout() {

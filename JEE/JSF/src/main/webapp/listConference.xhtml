@@ -9,12 +9,32 @@
     <title>Liste Conferences</title>
 </head>
 <body>
+
+<h:form rendered="#{loginBean.isAdmin()}">
+    <h:inputText value="#{conferenceBean.nameSearched}" />
+    <h:commandButton value="Filtrer"/>
+    <h:commandButton action="#{conferenceBean.initFilter()}" value="Supprimer le filtre" disabled="#{conferenceBean.nameSearched.length()==0}"/>
+
 <ul>
     <ui:repeat value="#{conferenceManager.findAll()}" var="conf">
+        <h:panelGroup rendered="#{conferenceBean.isPertinent(conf.nomConference)}">
         <li>
             #{conf}
+            <h:commandButton value="Notifier" action="#{conferenceBean.notifyUsers}">
+                <f:param name="idConference" value="#{conf.idConference}"/>
+            </h:commandButton>
         </li>
+        </h:panelGroup>
     </ui:repeat>
 </ul>
+
+
+    Message à transmettre : <h:inputTextarea value="#{conferenceBean.message}"></h:inputTextarea>
+
+
+
+    <h:commandButton value="Retour" action="home"/>
+</h:form>
+
 </body>
 </html>

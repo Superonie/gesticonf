@@ -42,6 +42,7 @@ public class PresentationBean {
 
     private int refConference;
     private String refName;
+    private String nameSearched ="";
 
     public String getHeureFin() {
         return heureFin;
@@ -97,6 +98,10 @@ public class PresentationBean {
 
     public void setDate(String date) { this.date = date; }
 
+    public String getNameSearched() { return nameSearched; }
+
+    public void setNameSearched(String nameSearched) { this.nameSearched = nameSearched; }
+
     public void ajouter() {
         refConference = conferenceManager.findByName(refName).getIdConference();
         idPresentation = presentationManager.findIdAvailable();
@@ -129,6 +134,8 @@ public class PresentationBean {
         PresentationEntity pe = presentationManager.find(idPresentation);
         String message;
 
+        System.err.println("ID =" + idPresentation);
+        
         // Soit seul le lieu change
         if ( heureDebut.length() == 0 || heureFin.length() == 0 ) {
             message = "La présentation sur "+pe.getSujet()+" prévue de "+pe.getHeureDeb()+" à "+pe.getHeureFin()+
@@ -153,8 +160,10 @@ public class PresentationBean {
             pe.setHeureFin(heureFin);
         }
 
-        // On envoie la notification à tous les devices
-        NotificationSender.getInstance().setListRegistrationIds(deviceManager.findAllRegistrationsIds());
+        int refConf = pe.getRefConference();
+
+        // On envoie la notification à tous les devices suivant la conférence en question
+        NotificationSender.getInstance().setListRegistrationIds(deviceManager.findAllRegistrationsIdsByConf(refConf));
         NotificationSender.getInstance().sendNotification(message);
 
         // On met à jour la base de données à partir des informations reçues
@@ -169,6 +178,15 @@ public class PresentationBean {
     public void reset() {
         presentationManager.reset();
         conferenceManager.reset();
+    }
+
+
+    public void initFilter() {
+        this.nameSearched = "";
+    }
+
+    public boolean isPertinent(String namePres) {
+        return namePres.toLowerCase().contains(nameSearched.toLowerCase());
     }
 
     @Override

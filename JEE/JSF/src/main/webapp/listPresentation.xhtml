@@ -5,34 +5,47 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core" >
+      xmlns:f="http://java.sun.com/jsf/core">
 <head>
     <title>Liste Presentations</title>
 </head>
 <body>
-<h:form>
 
-<ul>
-    <ui:repeat value="#{presentationManager.findAll()}" var="pres">
-        <li>
-            #{pres}
 
-            <h:commandButton value="Supprimer" action="#{presentationBean.delete}" >
-                <f:param name="idPresentation" value="#{pres.idPresentation}"/>
-            </h:commandButton>
+<h:form rendered="#{loginBean.isAdmin()}">
 
-            <h:commandButton  value="Modifier" action="#{presentationBean.update}" >
-                <f:param name="idPresentation" value="#{pres.idPresentation}"/>
-            </h:commandButton>
-        </li>
-    </ui:repeat>
-</ul>
-Nouveau Lieu : <h:inputText value="#{presentationBean.lieu}"></h:inputText>
-Nouvelle Heure Début : <h:inputText value="#{presentationBean.heureDebut}"></h:inputText>
-Nouvelle Heure Fin : <h:inputText value="#{presentationBean.heureFin}"></h:inputText>
+    <h:inputText value="#{presentationBean.nameSearched}"/>
+    <h:commandButton value="Filtrer"/>
+    <h:commandButton action="#{presentationBean.initFilter()}" value="Supprimer le filtre"
+                     disabled="#{presentationBean.nameSearched.length()==0}"/>
 
-    <h:commandButton value="Reset Presentation" action="#{presentationBean.reset}"/>
+    <ul>
+        <ui:repeat value="#{presentationManager.findAll()}" var="pres">
+            <h:panelGroup rendered="#{presentationBean.isPertinent(pres.sujet)}">
+
+                <li>
+                    #{pres}
+
+                    <h:commandButton value="Supprimer" action="#{presentationBean.delete}">
+                        <f:param name="idPresentation" value="#{pres.idPresentation}"/>
+                    </h:commandButton>
+
+                    <h:commandButton value="Modifier" action="#{presentationBean.update}">
+                        <f:param name="idPresentation" value="#{pres.idPresentation}"/>
+                    </h:commandButton>
+
+                </li>
+            </h:panelGroup>
+        </ui:repeat>
+    </ul>
+
+    Nouveau Lieu : <h:inputText value="#{presentationBean.lieu}"></h:inputText>
+    Nouvelle Heure Début : <h:inputText value="#{presentationBean.heureDebut}"></h:inputText>
+    Nouvelle Heure Fin : <h:inputText value="#{presentationBean.heureFin}"></h:inputText>
+
+    <h:commandButton rendered="#{loginBean.isAdmin()}" value="Retour" action="home"/>
+
+
 </h:form>
-
 </body>
 </html>

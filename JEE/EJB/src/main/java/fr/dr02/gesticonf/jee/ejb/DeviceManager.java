@@ -45,6 +45,18 @@ public class DeviceManager {
     }
 
     @WebMethod
+    // Renvoie une collection contenant tous les idRegistration des devices existants et suivant la conférence représentée par refConf
+    public Collection<String> findAllRegistrationsIdsByConf(int refConf) {
+        Query query = emf.createEntityManager().createQuery("SELECT d FROM DeviceEntity d WHERE d.refConference = "+refConf);
+
+        List<String> l = new ArrayList<String>();
+        for ( DeviceEntity de : (Collection<DeviceEntity>) query.getResultList() )
+            l.add(de.getIdRegistration());
+
+        return l;
+    }
+
+    @WebMethod
     // Rend persistant le device donné en paramètre
     public void ajouter(DeviceEntity deviceEntity) {
         EntityManager em = emf.createEntityManager();

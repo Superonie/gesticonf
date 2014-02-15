@@ -1,12 +1,16 @@
 package fr.dr02.gesticonf.jee.jsf;
 
 import fr.dr02.gesticonf.jee.ejb.ConferenceManager;
+import fr.dr02.gesticonf.jee.ejb.DeviceManager;
+import fr.dr02.gesticonf.jee.gcm.NotificationSender;
 import fr.dr02.gesticonf.jpa.ConferenceEntity;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import java.util.Map;
 
 /**
  * Created by damien on 05/02/14.
@@ -19,6 +23,9 @@ public class ConferenceBean {
     @EJB
     private ConferenceManager conferenceManager;
 
+    @EJB
+    private DeviceManager deviceManager;
+
     private int idConference;
     private String nomConference;
     private String dateDebut;
@@ -27,6 +34,7 @@ public class ConferenceBean {
 
     private boolean render = false;
     private String nameSearched = "";
+    private String message;
 
     public int getIdConference() {
         return idConference;
@@ -76,6 +84,10 @@ public class ConferenceBean {
 
     public void setNameSearched(String nameSearched) { this.nameSearched = nameSearched; }
 
+    public String getMessage() { return message; }
+
+    public void setMessage(String message) { this.message = message; }
+
     public void ajouter() {
         idConference = conferenceManager.findIdAvailable() ;
 
@@ -93,8 +105,15 @@ public class ConferenceBean {
         this.nameSearched = "";
     }
 
-    public boolean isPertinent(String confName) {
+    public void notifyUsers() {
+        Map<String,String> paramsMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        int idConference = Integer.valueOf(paramsMap.get("idConference"));
 
+        NotificationSender.getInstance().setListRegistrationIds(deviceManager.findAllRegistrationsIdsByConf(idConference));
+        NotificationSender.getInstance().sendNotification(message);
+    }
+
+    public boolean isPertinent(String confName) {
          return confName.toLowerCase().contains(nameSearched.toLowerCase());
     }
 

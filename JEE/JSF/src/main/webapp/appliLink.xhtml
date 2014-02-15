@@ -18,11 +18,11 @@
 
 <ul>
     <ui:repeat value="#{conferenceManager.findAll()}" var="conf">
-        <h:form rendered="#{conferenceBean.isPertinent(conf.nomConference)}">
+        <h:panelGroup rendered="#{conferenceBean.isPertinent(conf.nomConference)}">
         <li>
             <a href="dlepellet044.rcarabalo://univtln/#{conf.idConference}"> Lancer #{conf.nomConference} </a>
         </li>
-        </h:form>
+        </h:panelGroup>
     </ui:repeat>
 </ul>
 

@@ -10,7 +10,7 @@
     <title>Ajouter Presentation</title>
 </head>
 <body>
-<h:form>
+<h:form rendered="#{loginBean.isAdmin()}">
 
     Conference :
     <h:selectOneMenu id="combo" value="#{presentationBean.refName}">
@@ -26,6 +26,7 @@
     Résumé : <h:inputTextarea value="#{presentationBean.resume}"></h:inputTextarea><br/>
 
     <h:commandButton id="ajouter" value="Nouvelle presentation" action="#{presentationBean.ajouter}"  />
+    <h:commandButton value="Retour" action="home"/>
 
 </h:form>
 

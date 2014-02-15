@@ -9,16 +9,12 @@
 
             <h:panelGrid id="loginPanel" columns="2">
 
-                <h:outputText value="Username" />
 
-                <h:inputText id="username" value="#{loginBean.uname}" ></h:inputText>
-
+                Username : <h:inputText id="username" value="#{loginBean.uname}" ></h:inputText>
 
                 <h:message for="username" ></h:message>
 
-                <h:outputText value="Password" />
-
-                <h:inputText id="password" value="#{loginBean.password}"  feedback="false"></h:inputText>
+                Password : <h:inputText id="password" value="#{loginBean.password}"  feedback="false"></h:inputText>
 
                 <h:message for="password"></h:message>
 

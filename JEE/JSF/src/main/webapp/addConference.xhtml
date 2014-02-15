@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<h:form>
+<h:form rendered="#{loginBean.isAdmin()}">
 
 
     <!--Id : <h:inputText value="#{conferenceBean.idConference}"></h:inputText><br/> -->
@@ -20,6 +20,7 @@
     Theme : <h:inputText value="#{conferenceBean.theme}"></h:inputText><br/>
 
     <h:commandButton id="ajouter" value="Ajouter Conférence" action="#{conferenceBean.ajouter}"/>
+    <h:commandButton value="Retour" action="home"/>
 
 </h:form>
 
