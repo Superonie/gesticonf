@@ -45,7 +45,7 @@
             </intent-filter>
 
             <intent-filter>
-                <data android:scheme="dlepellet044.rcarabalo" />
+                <data android:scheme="@string/scheme" />
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />

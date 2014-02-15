@@ -6,16 +6,22 @@ import javax.persistence.*;
  * Created by damien on 08/02/14.
  */
 @Entity
-@IdClass(DeviceEntityPK.class)
 @Table(name = "DEVICE", schema = "PUBLIC", catalog="GESTICONF")
 public class DeviceEntity {
 
+    private int idGlobal;
     private String idDevice;
     private String idRegistration;
     private int refConference;
 
     @Id
-    @Column(name="ID_DEVICE")
+    @Column(name= "ID_GLOBAL")
+    public int getIdGlobal() { return idGlobal; }
+
+    public void setIdGlobal(int idGlobal) {  this.idGlobal = idGlobal; }
+
+    @Basic
+    @Column(name= "ID_DEVICE")
     public String getIdDevice() {
         return idDevice;
     }
@@ -34,7 +40,7 @@ public class DeviceEntity {
         this.idRegistration = idRegistration;
     }
 
-    @Id
+    @Basic
     @Column(name="REF_CONFERENCE")
     public int getRefConference() { return refConference; }
 

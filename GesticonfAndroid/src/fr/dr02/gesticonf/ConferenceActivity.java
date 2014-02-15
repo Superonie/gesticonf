@@ -8,10 +8,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.provider.Settings;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.*;
 import com.google.android.gcm.GCMRegistrar;
 import org.json.JSONArray;
@@ -25,6 +27,7 @@ public class ConferenceActivity extends Activity {
     ImageButton returnButton;
     private int idConf = -1;
     private static ConferenceActivity ourInstance;
+    private String androidId;
 
     public static ConferenceActivity getInstance() {
         return ourInstance;
@@ -34,38 +37,27 @@ public class ConferenceActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         //TODO Perfectionnable
         // Utilisation d'Internet dans le thread principal
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-
-        idConf = Math.max(idConf, findIdConf());
-
-        Log.i("TAG EUL","IDCONF = "+ idConf);
+        initRS();
+        androidId = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
 
         Uri data = getIntent().getData();
-        if (data != null)
-            if (data.getPathSegments().size() > 0)
+        if (data != null) {
+            if (data.getPathSegments().size() > 0) {
                 idConf = Integer.valueOf(data.getPathSegments().get(0));
-
-        if ( idConf != -1 ) {
-            initRS();
-            load(idConf);
-            registerGCM(idConf);
+                load(idConf);
+                registerGCM(idConf);
+            }
         } else {
-            TextView tvInform = new TextView(getApplicationContext());
-            tvInform.setText("Aucune conférence liée à l'application");
-            tvInform.setTextSize(20);
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-            RelativeLayout rl = new RelativeLayout(getApplicationContext());
 
-            params.addRule(RelativeLayout.CENTER_HORIZONTAL);
-            params.addRule(RelativeLayout.CENTER_VERTICAL);
+            WebView wv = new WebView(this);
+            setContentView(wv);
+            wv.loadUrl(getResources().getString(R.string.ip_server)+"/JSF/appliLink.xhtml");
 
-            rl.addView(tvInform,params);
-            setContentView(rl);
         }
 
 
@@ -75,45 +67,8 @@ public class ConferenceActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        idConf = Math.max(idConf, findIdConf());
-
-        Log.i("TAG EUL","IDCONF = "+ idConf);
-
-        Uri data = getIntent().getData();
-        if (data != null)
-            if (data.getPathSegments().size() > 0)
-                idConf = Integer.valueOf(data.getPathSegments().get(0));
-
-        if ( idConf != -1 ) {
-            initRS();
-            load(idConf);
-            registerGCM(idConf);
-        } else {
-            TextView tvInform = new TextView(getApplicationContext());
-            tvInform.setText("Aucune conférence liée à l'application");
-            tvInform.setTextSize(20);
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-            RelativeLayout rl = new RelativeLayout(getApplicationContext());
-
-            params.addRule(RelativeLayout.CENTER_HORIZONTAL);
-            params.addRule(RelativeLayout.CENTER_VERTICAL);
-
-            rl.addView(tvInform,params);
-            setContentView(rl);
-        }
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
-        savedInstanceState.putInt("idConf", idConf);
-    }
-
-    @Override
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        idConf = savedInstanceState.getInt("idConf");
-    }
 
     public int findIdConf() {
         Uri data = getIntent().getData();
@@ -121,7 +76,7 @@ public class ConferenceActivity extends Activity {
             if (data.getPathSegments().size() > 0)
                 return Integer.valueOf(data.getPathSegments().get(0));
 
-        return -1;
+        return 1;
     }
 
     public void initRS() {
@@ -129,13 +84,17 @@ public class ConferenceActivity extends Activity {
         String urlGetConf = ip + getResources().getString(R.string.url_get_conf);
         String urlGetPresByConf = ip + getResources().getString(R.string.url_get_pres_by_conf);
         String urlAddDevice = ip + getResources().getString(R.string.url_add_device);
+        String urlIdAvailable = ip + getResources().getString(R.string.url_global_id_device);
+        String urlFindDevice = ip + getResources().getString(R.string.url_find_device);
+        String urlFindConference = ip + getResources().getString(R.string.url_find_conference);
 
-        RestServices.getInstance().init(ip, urlGetConf, urlGetPresByConf, urlAddDevice);
+        RestServices.getInstance().init(ip, urlGetConf, urlGetPresByConf, urlAddDevice, urlIdAvailable, urlFindDevice, urlFindConference);
     }
 
     public void load(int idConf) {
 
         if (idConf != -1) {
+
 
             RestServices.getInstance().findConference(idConf);
 
@@ -176,6 +135,7 @@ public class ConferenceActivity extends Activity {
                 JSONArrayConferenceAdapter jsonArrayAdapter = new JSONArrayConferenceAdapter(this, RestServices.getInstance().currentPresentations);
                 lvPresentations.setAdapter(jsonArrayAdapter);
 
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -184,12 +144,17 @@ public class ConferenceActivity extends Activity {
 
 
     public void registerGCM(int idConf) {
+
         GCMRegistrar.checkDevice(this);
+
         GCMRegistrar.checkManifest(this);
 
-        String androidId = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
-        String registrationId = GCMRegistrar.getRegistrationId(this);
         GCMRegistrar.register(this, getResources().getString(R.string.id_project));
+        String registrationId = GCMRegistrar.getRegistrationId(this);
+
+
+        Log.i("TAG EUL", androidId + " " + registrationId);
+
 
         RestServices.getInstance().addDevice(androidId, registrationId, idConf);
     }
@@ -207,7 +172,7 @@ public class ConferenceActivity extends Activity {
     public void createResumePopUp(String title, String message) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 
-        LinearLayout lila= new LinearLayout(this);
+        LinearLayout lila = new LinearLayout(this);
         lila.setOrientation(1); //1 is for vertical orientation
 
         final TextView tvTitle = new TextView(this);
@@ -221,9 +186,10 @@ public class ConferenceActivity extends Activity {
         alertDialogBuilder
                 .setCancelable(true)
                 .setView(lila)
-                .setPositiveButton("Fermer",new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,int id) {
-                        dialog.dismiss();;
+                .setPositiveButton("Fermer", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                        ;
                     }
                 });
 

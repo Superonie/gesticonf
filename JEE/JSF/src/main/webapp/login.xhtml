@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+    <title>login</title>
+</h:head>
+<h:body>
+    <h:form id="loginForm">
+
+            <h:panelGrid id="loginPanel" columns="2">
+
+                <h:outputText value="Username" />
+
+                <h:inputText id="username" value="#{loginBean.uname}" ></h:inputText>
+
+
+                <h:message for="username" ></h:message>
+
+                <h:outputText value="Password" />
+
+                <h:inputText id="password" value="#{loginBean.password}"  feedback="false"></h:inputText>
+
+                <h:message for="password"></h:message>
+
+                <h:commandButton action="#{loginBean.loginProject()}" value="Login" update="loginForm" ajax="true"></h:commandButton>
+
+            </h:panelGrid>
+
+
+    </h:form>
+
+</h:body>
+
+</html>

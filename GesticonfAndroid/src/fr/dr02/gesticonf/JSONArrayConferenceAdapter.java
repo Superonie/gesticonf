@@ -14,7 +14,6 @@ import org.json.JSONObject;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -77,11 +76,6 @@ public class JSONArrayConferenceAdapter extends BaseAdapter {
             lieu = jsonObject.getString("lieu");
             resume = jsonObject.getString("resume");
             orateurs = jsonObject.getString("orateurs");
-
-
-            Log.i("TAG EUL",currentDate+" !");
-
-
         } catch (JSONException e) { }
 
 
@@ -93,16 +87,13 @@ public class JSONArrayConferenceAdapter extends BaseAdapter {
         TextView tvOrateurs = (TextView) view.findViewById(R.id.orateurs);
         TextView tvLieu = (TextView) view.findViewById(R.id.lieu);
 
-        Log.i("TAG EUL", sujet + " " + heureDebut + " " + heureFin + " " + date + " " + orateurs + " " + lieu);
-
-
         tvSujet.setText(sujet);
         tvHeureD.setText(heureDebut);
         tvHeureF.setText(heureFin);
 
         // Si c'est une nouvelle date, on l'écrit et on crée un espacement visuel
         if ( !date.equals(currentDate) ) {
-            tvDate.setText(reformatDate(date));
+            tvDate.setText(dateBDDtodateLisible(date));
             view.setPadding(0,30,0,0);
         }
 
@@ -125,19 +116,23 @@ public class JSONArrayConferenceAdapter extends BaseAdapter {
     }
 
 
-
-    // convert 2014-01-01 en
-    public String reformatDate(String date) {
+    // convert 2014-01-01 en Lundi 1 janv
+    public String dateBDDtodateLisible(String date) {
         String dFormatee = "";
 
         try {
-            Date d = DateFormat.getInstance().parse(date);
-            DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss", Locale.FRENCH);
-            dFormatee = df.format(d);
+            SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd");
 
-            Log.i("TAG LIATELLE",dFormatee);
+            Date d = df1.parse(date);
+            DateFormat df2 = new SimpleDateFormat("EEEE d MMM", Locale.FRENCH);
+            dFormatee = df2.format(d);
+
+
         } catch (ParseException e) { e.printStackTrace(); }
 
         return dFormatee;
     }
+
+
+
 }

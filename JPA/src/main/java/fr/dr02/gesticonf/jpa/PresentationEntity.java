@@ -16,8 +16,7 @@ public class PresentationEntity implements Comparable {
     private String sujet;
     private String lieu;
     private String orateurs;
-    private double latitude;
-    private double longitude;
+    private String resume;
     private int refConference;
 
     @Id
@@ -72,21 +71,17 @@ public class PresentationEntity implements Comparable {
 
     public void setLieu(String lieu) { this.lieu = lieu; }
 
+    @Basic
+    @Column(name = "ORATEURS")
     public String getOrateurs() { return orateurs; }
 
     public void setOrateurs(String orateurs) { this.orateurs = orateurs; }
 
     @Basic
-    @Column(name = "LATITUDE")
-    public double getLatitude() { return latitude; }
+    @Column(name = "RESUME")
+    public String getResume() { return resume; }
 
-    public void setLatitude(double latitude) { this.latitude = latitude; }
-
-    @Basic
-    @Column(name = "LONGITUDE")
-    public double getLongitude() { return longitude; }
-
-    public void setLongitude(double longitude) { this.longitude = longitude; }
+    public void setResume(String resume) { this.resume = resume; }
 
     @Basic
     @Column(name = "REF_CONFERENCE")

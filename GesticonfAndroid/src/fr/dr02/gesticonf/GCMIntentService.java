@@ -31,7 +31,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 
     public GCMIntentService()
     {
-        super(String.valueOf(R.string.id_project));
+        super("899182185533");
     }
 
     @Override

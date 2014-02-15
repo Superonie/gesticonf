@@ -37,9 +37,9 @@ public class PresentationBean {
     private String heureFin;
     private String sujet;
     private String orateurs;
+    private String resume;
     private String lieu;
-    private double latitude;
-    private double longitude;
+
     private int refConference;
     private String refName;
 
@@ -77,6 +77,10 @@ public class PresentationBean {
 
     public void setOrateurs(String orateurs) { this.orateurs = orateurs; }
 
+    public String getResume() { return resume; }
+
+    public void setResume(String resume) { this.resume = resume; }
+
     public int getRefConference() { return refConference; }
 
     public void setRefConference(int refConference) { this.refConference = refConference; }
@@ -84,14 +88,6 @@ public class PresentationBean {
     public String getRefName() { return refName;  }
 
     public void setRefName(String refName) {  this.refName = refName;  }
-
-    public double getLongitude() { return longitude;}
-
-    public void setLongitude(double longitude) { this.longitude = longitude; }
-
-    public double getLatitude() { return latitude; }
-
-    public void setLatitude(double latitude) { this.latitude = latitude; }
 
     public String getLieu() { return lieu; }
 
@@ -111,10 +107,9 @@ public class PresentationBean {
         presentationEntity.setHeureFin(heureFin);
         presentationEntity.setSujet(sujet);
         presentationEntity.setOrateurs(orateurs);
+        presentationEntity.setResume(resume);
         presentationEntity.setRefConference(refConference);
         presentationEntity.setDate(date);
-        presentationEntity.setLatitude(latitude);
-        presentationEntity.setLongitude(longitude);
         presentationEntity.setLieu(lieu);
 
         this.presentationManager.ajouter(presentationEntity);

@@ -9,7 +9,6 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="New Text"
             android:paddingBottom="10dp"
             android:gravity="center"
             android:id="@+id/date" android:layout_weight="0.9"/>
@@ -17,7 +16,6 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="New Text"
             android:gravity="center"
             android:paddingBottom="10dp"
             android:id="@+id/heure_debut" android:layout_weight="1"/>
@@ -25,7 +23,6 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="New Text"
             android:gravity="center"
             android:paddingBottom="10dp"
             android:id="@+id/heure_fin" android:layout_weight="1"/>
@@ -33,7 +30,6 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="New Text"
             android:gravity="center"
             android:paddingBottom="10dp"
             android:id="@+id/sujet_presentation" android:layout_weight="0.75"/>
@@ -41,7 +37,6 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="New Text"
             android:gravity="center"
             android:paddingBottom="10dp"
             android:id="@+id/orateurs" android:layout_weight="0.75"/>
@@ -49,7 +44,6 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="New Text"
             android:gravity="center"
             android:paddingBottom="10dp"
             android:id="@+id/lieu" android:layout_weight="1"/>

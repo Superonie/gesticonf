@@ -2,15 +2,13 @@ package fr.dr02.gesticonf.jee.ejb;
 
 import fr.dr02.gesticonf.jpa.ConferenceEntity;
 import fr.dr02.gesticonf.jpa.DeviceEntity;
+import fr.dr02.gesticonf.jpa.PresentationEntity;
 
 import javax.ejb.Stateless;
 import javax.inject.Named;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnit;
-import javax.persistence.Query;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -60,4 +58,31 @@ public class DeviceManager {
         query.executeUpdate();
     }
 
+    @WebMethod
+    public String findIdAvailable() {
+        Query query = emf.createEntityManager().createQuery("SELECT d FROM DeviceEntity d ORDER BY d.idGlobal DESC");
+        List<DeviceEntity> l = query.getResultList();
+        if ( l.size() > 0 )
+            return (l.get(0).getIdGlobal() + 1)+"";
+        else // il se peut qu'il n'y ait aucune donnée persistante dans la base
+            return 0+"";
+    }
+
+    @WebMethod
+    public DeviceEntity findByIdConfIdDevice(String idConf, String idDevice) {
+        Integer refConf = Integer.valueOf(idConf);
+        Query query = emf.createEntityManager().createQuery("SELECT d FROM DeviceEntity d WHERE d.idDevice ='" + idDevice + "' AND d.refConference =" + refConf);
+
+        try {
+         return (DeviceEntity) query.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
+    @WebMethod
+    public Collection<ConferenceEntity> findConferenceByIdDevice(String idDevice) {
+        Query query = emf.createEntityManager().createQuery("SELECT c FROM ConferenceEntity AS c INNER JOIN DeviceEntity AS d ON d.refConference = c.idConference WHERE d.idDevice ='" + idDevice + "'");
+        return query.getResultList();
+    }
 }

@@ -25,6 +25,9 @@ public class ConferenceBean {
     private String dateFin;
     private String theme;
 
+    private boolean render = false;
+    private String nameSearched = "";
+
     public int getIdConference() {
         return idConference;
     }
@@ -65,6 +68,14 @@ public class ConferenceBean {
         this.theme = theme;
     }
 
+    public boolean isRender() { return render; }
+
+    public void setRender(boolean render) { this.render = render; }
+
+    public String getNameSearched() { return nameSearched; }
+
+    public void setNameSearched(String nameSearched) { this.nameSearched = nameSearched; }
+
     public void ajouter() {
         idConference = conferenceManager.findIdAvailable() ;
 
@@ -76,6 +87,15 @@ public class ConferenceBean {
         conferenceEntity.setTheme(theme);
 
         this.conferenceManager.ajouter(conferenceEntity);
+    }
+
+    public void initFilter() {
+        this.nameSearched = "";
+    }
+
+    public boolean isPertinent(String confName) {
+
+         return confName.toLowerCase().contains(nameSearched.toLowerCase());
     }
 
 }
