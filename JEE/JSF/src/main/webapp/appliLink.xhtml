@@ -14,17 +14,20 @@
    <h:inputText value="#{conferenceBean.nameSearched}" />
     <h:commandButton value="Filtrer"/>
     <h:commandButton action="#{conferenceBean.initFilter()}" value="Supprimer le filtre" disabled="#{conferenceBean.nameSearched.length()==0}"/>
-</h:form>
 
 <ul>
     <ui:repeat value="#{conferenceManager.findAll()}" var="conf">
         <h:panelGroup rendered="#{conferenceBean.isPertinent(conf.nomConference)}">
         <li>
-            <a href="dlepellet044.rcarabalo://univtln/#{conf.idConference}"> Lancer #{conf.nomConference} </a>
+            <a href="dlepellet044.rcarabalo://univtln/#{conf.idConference}"> #{conf.nomConference} </a>
         </li>
         </h:panelGroup>
     </ui:repeat>
 </ul>
+
+<h:commandButton action="login" value="Portail Admin" />
+</h:form>
+
 
 </body>
 </html>

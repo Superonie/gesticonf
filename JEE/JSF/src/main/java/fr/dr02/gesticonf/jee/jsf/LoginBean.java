@@ -3,7 +3,11 @@ package fr.dr02.gesticonf.jee.jsf;
 /**
  * Created by damien on 15/02/14.
  */
+import fr.dr02.gesticonf.jee.ejb.UserManager;
+import fr.dr02.gesticonf.jpa.UserEntity;
+
 import java.io.Serializable;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -16,9 +20,12 @@ import javax.servlet.http.HttpSession;
 @SessionScoped
 public class LoginBean implements Serializable {
 
+    @EJB
+    UserManager userManager;
+
     private static final long serialVersionUID = 1L;
     private String password;
-    private String message="", uname="";
+    private String message="", uname="", oldPass="", newPass="";
 
     public String getMessage() {
         return message;
@@ -44,9 +51,19 @@ public class LoginBean implements Serializable {
         this.uname = uname;
     }
 
+    public String getOldPass() { return oldPass; }
+
+    public void setOldPass(String oldPass) { this.oldPass = oldPass; }
+
+    public String getNewPass() { return newPass; }
+
+    public void setNewPass(String newPass) { this.newPass = newPass; }
+
     public String loginProject() {
 
-        boolean result = uname.equals("admin") && password.equals("pass");
+        UserEntity u = userManager.findAdmin();
+
+        boolean result = password.equals(u.getPassword());
         if (result) {
             // get Http Session and store username
             HttpSession session = Util.getSession();
@@ -82,5 +99,20 @@ public class LoginBean implements Serializable {
         HttpSession session = Util.getSession();
         session.invalidate();
         return "login";
+    }
+
+    public void changeMDP() {
+        UserEntity u = userManager.findAdmin();
+
+        if ( oldPass.equals(u.getPassword()) ) {
+
+            u.setPassword(newPass);
+            userManager.update(u);
+        } else
+            FacesContext.getCurrentInstance().addMessage(
+                    null,
+                    new FacesMessage(FacesMessage.SEVERITY_WARN,
+                            "Invalid Login!",
+                            "Please Try Again!"));
     }
 }

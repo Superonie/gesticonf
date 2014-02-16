@@ -7,20 +7,17 @@
 <h:body>
     <h:form id="loginForm">
 
-            <h:panelGrid id="loginPanel" columns="2">
 
+        Username : <h:inputText id="username" value="#{loginBean.uname}"></h:inputText><br/>
 
-                Username : <h:inputText id="username" value="#{loginBean.uname}" ></h:inputText>
+        <h:message for="username"></h:message>
 
-                <h:message for="username" ></h:message>
+        Password : <h:inputText id="password" value="#{loginBean.password}" feedback="false"></h:inputText><br/>
 
-                Password : <h:inputText id="password" value="#{loginBean.password}"  feedback="false"></h:inputText>
+        <h:message for="password"></h:message>
 
-                <h:message for="password"></h:message>
-
-                <h:commandButton action="#{loginBean.loginProject()}" value="Login" update="loginForm" ajax="true"></h:commandButton>
-
-            </h:panelGrid>
+        <h:commandButton action="#{loginBean.loginProject()}" value="Login" update="loginForm"
+                         ajax="true"></h:commandButton>
 
 
     </h:form>

@@ -133,32 +133,32 @@ public class PresentationBean {
         int idPresentation = Integer.valueOf(paramsMap.get("idPresentation"));
         PresentationEntity pe = presentationManager.find(idPresentation);
         String message;
+        String oldSujet = pe.getSujet();
 
-        System.err.println("ID =" + idPresentation);
-        
-        // Soit seul le lieu change
-        if ( heureDebut.length() == 0 || heureFin.length() == 0 ) {
-            message = "La présentation sur "+pe.getSujet()+" prévue de "+pe.getHeureDeb()+" à "+pe.getHeureFin()+
-                    " en "+pe.getLieu()+" se déroulera en "+lieu;
-            pe.setLieu(lieu);
-        }
+        if ( orateurs.length() > 0 )
+            pe.setOrateurs(orateurs);
 
-        // Soit les horaires changent
-        else if ( lieu.length() == 0 ) {
-            message = "La présentation sur "+pe.getSujet()+" prévue de "+pe.getHeureDeb()+" à "+pe.getHeureFin()+
-                    " en "+pe.getLieu()+" est décalée de "+heureDebut+" à "+heureFin;
+        if ( heureDebut.length() > 0 )
             pe.setHeureDeb(heureDebut);
-            pe.setHeureFin(heureFin);
-        }
 
-        // Soit tout change
-        else {
-            message = "La présentation sur "+pe.getSujet()+" prévue de "+pe.getHeureDeb()+" à "+pe.getHeureFin()+
-                    " en "+pe.getLieu()+" est décalée de "+heureDebut+" à "+heureFin+" et se déroulera en "+lieu;
-            pe.setLieu(lieu);
-            pe.setHeureDeb(heureDebut);
+        if ( heureFin.length() > 0 )
             pe.setHeureFin(heureFin);
-        }
+
+        if ( lieu.length() > 0 )
+            pe.setLieu(lieu);
+
+        if ( date.length() > 0 )
+            pe.setDate(date);
+
+        if ( sujet.length() > 0 ) {
+            pe.setSujet(sujet);
+            message = "La présentation sur "+oldSujet+" concernera "+sujet+" et se déroulera " + " le " + pe.getDate() +
+                    "de "+pe.getHeureDeb()+
+                    " à "+pe.getHeureFin()+" en "+pe.getLieu();
+        } else
+            message = "La présentation sur "+oldSujet+" se déroulera " + " le " + pe.getDate() +
+                    "de "+pe.getHeureDeb()+
+                    " à "+pe.getHeureFin()+" en "+pe.getLieu();
 
         int refConf = pe.getRefConference();
 
@@ -170,9 +170,13 @@ public class PresentationBean {
         presentationManager.update(pe);
 
         // On réinitialise les données
-        //pe.setLieu("");
-        //pe.setHeureDeb("");
-        //pe.setHeureFin("");
+        this.orateurs = "";
+        this.heureDebut = "";
+        this.heureFin ="";
+        this.lieu = "";
+        this.date = "";
+        this.sujet = "";
+
     }
 
     public void reset() {
@@ -187,14 +191,5 @@ public class PresentationBean {
 
     public boolean isPertinent(String namePres) {
         return namePres.toLowerCase().contains(nameSearched.toLowerCase());
-    }
-
-    @Override
-    public String toString() {
-        return "PresentationBean{" +
-                "heureDebut='" + heureDebut + '\'' +
-                ", heureFin='" + heureFin + '\'' +
-                ", lieu='" + lieu + '\'' +
-                '}';
     }
 }

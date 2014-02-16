@@ -64,6 +64,7 @@ public class GCMIntentService extends GCMBaseIntentService {
             notification.setLatestEventInfo(context, title, message, intent);
         }
 
+
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
         notificationManager.notify(0, notification);
      }

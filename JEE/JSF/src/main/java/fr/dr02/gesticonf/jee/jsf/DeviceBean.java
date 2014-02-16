@@ -22,7 +22,6 @@ public class DeviceBean {
     private String idRegistration;
     private int refConference;
 
-
     public String getIdDevice() {
         return idDevice;
     }
