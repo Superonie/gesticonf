@@ -92,10 +92,10 @@ public class JSONArrayConferenceAdapter extends BaseAdapter {
         tvHeureF.setText(heureFin);
 
         // Si c'est une nouvelle date, on l'écrit et on crée un espacement visuel
-        if ( !date.equals(currentDate) ) {
+        //if ( !date.equals(currentDate) ) {
             tvDate.setText(dateBDDtodateLisible(date));
-            view.setPadding(0,30,0,0);
-        }
+            view.setPadding(0,40,0,0);
+        //}
 
         currentDate = date;
 

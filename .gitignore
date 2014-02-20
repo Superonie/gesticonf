@@ -41,3 +41,6 @@ proguard/
 *.ear
 
 workspace.xml
+
+target/
+artifacts/

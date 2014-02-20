@@ -8,16 +8,15 @@
     <h:form id="loginForm">
 
 
-        Username : <h:inputText id="username" value="#{loginBean.uname}"></h:inputText><br/>
+        Username : <h:inputText id="username" value="#{loginBean.uname}">admin</h:inputText><br/>
 
         <h:message for="username"></h:message>
 
-        Password : <h:inputText id="password" value="#{loginBean.password}" feedback="false"></h:inputText><br/>
+        Password : <h:inputSecret id="password" value="#{loginBean.password}" feedback="false"></h:inputSecret><br/>
 
         <h:message for="password"></h:message>
 
-        <h:commandButton action="#{loginBean.loginProject()}" value="Login" update="loginForm"
-                         ajax="true"></h:commandButton>
+        <h:commandButton action="#{loginBean.loginProject()}" value="Login" update="loginForm"  ajax="true"></h:commandButton>
 
 
     </h:form>

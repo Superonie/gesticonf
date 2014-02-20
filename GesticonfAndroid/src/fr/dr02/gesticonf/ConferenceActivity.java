@@ -149,14 +149,17 @@ public class ConferenceActivity extends Activity {
 
         GCMRegistrar.checkManifest(this);
 
+
         GCMRegistrar.register(this, getResources().getString(R.string.id_project));
         String registrationId = GCMRegistrar.getRegistrationId(this);
 
-
         Log.i("TAG EUL", androidId + " " + registrationId);
 
+        if ( registrationId.length() > 0 )
+            RestServices.getInstance().addDevice(androidId, registrationId, idConf);
+        else
+            Toast.makeText(getApplicationContext(),"Enregistrement impossible, veuillez réessayer",Toast.LENGTH_LONG).show();
 
-        RestServices.getInstance().addDevice(androidId, registrationId, idConf);
     }
 
     public void enableReturnButton() {

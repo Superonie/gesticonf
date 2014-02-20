@@ -12,8 +12,8 @@
 <h:panelGroup rendered="#{loginBean.isAdmin()}">
 
     <h:form>
-        Ancien mot de passe <h:inputText value="#{loginBean.oldPass}"/><br/>
-        Nouveau mot de passe <h:inputText value="#{loginBean.newPass}"/><br/>
+        Ancien mot de passe <h:inputSecret value="#{loginBean.oldPass}"/><br/>
+        Nouveau mot de passe <h:inputSecret value="#{loginBean.newPass}"/><br/>
 
         <h:commandButton action="#{loginBean.changeMDP}" value="Changer MDP"/><br/>
         <h:commandButton value="Retour" action="home"/>

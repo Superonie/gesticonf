@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">GesticonfAndroid</string>
     <string name="id_project">899182185533</string>
-    <string name="ip_server">http://192.168.1.11:8080</string>
+    <string name="ip_server">http://78.240.80.4:8080</string>
     <string name="url_get_conf">/RS/conferenceEntityManagerRS</string>
     <string name="url_get_pres_by_conf">/RS/presentationEntityManagerRS</string>
     <string name="url_add_device">/RS/deviceEntityManagerRS/addDevice</string>

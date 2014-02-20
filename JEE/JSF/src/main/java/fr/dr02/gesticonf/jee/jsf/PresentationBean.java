@@ -11,7 +11,11 @@ import javax.ejb.Stateless;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -42,7 +46,7 @@ public class PresentationBean {
 
     private int refConference;
     private String refName;
-    private String nameSearched ="";
+    private String nameSearched = "";
 
     public String getHeureFin() {
         return heureFin;
@@ -68,39 +72,69 @@ public class PresentationBean {
         this.idPresentation = idPresentation;
     }
 
-    public String getSujet() { return sujet; }
+    public String getSujet() {
+        return sujet;
+    }
 
     public void setSujet(String sujet) {
         this.sujet = sujet;
     }
 
-    public String getOrateurs() { return orateurs; }
+    public String getOrateurs() {
+        return orateurs;
+    }
 
-    public void setOrateurs(String orateurs) { this.orateurs = orateurs; }
+    public void setOrateurs(String orateurs) {
+        this.orateurs = orateurs;
+    }
 
-    public String getResume() { return resume; }
+    public String getResume() {
+        return resume;
+    }
 
-    public void setResume(String resume) { this.resume = resume; }
+    public void setResume(String resume) {
+        this.resume = resume;
+    }
 
-    public int getRefConference() { return refConference; }
+    public int getRefConference() {
+        return refConference;
+    }
 
-    public void setRefConference(int refConference) { this.refConference = refConference; }
+    public void setRefConference(int refConference) {
+        this.refConference = refConference;
+    }
 
-    public String getRefName() { return refName;  }
+    public String getRefName() {
+        return refName;
+    }
 
-    public void setRefName(String refName) {  this.refName = refName;  }
+    public void setRefName(String refName) {
+        this.refName = refName;
+    }
 
-    public String getLieu() { return lieu; }
+    public String getLieu() {
+        return lieu;
+    }
 
-    public void setLieu(String lieu) { this.lieu = lieu; }
+    public void setLieu(String lieu) {
+        this.lieu = lieu;
+    }
 
-    public String getDate() { return date; }
+    public String getDate() {
+        return date;
+    }
 
-    public void setDate(String date) { this.date = date; }
+    public void setDate(String date) {
+        this.date = date;
+    }
 
-    public String getNameSearched() { return nameSearched; }
+    public String getNameSearched() {
+        return nameSearched;
+    }
 
-    public void setNameSearched(String nameSearched) { this.nameSearched = nameSearched; }
+    public void setNameSearched(String nameSearched) {
+        this.nameSearched = nameSearched;
+    }
 
     public void ajouter() {
         refConference = conferenceManager.findByName(refName).getIdConference();
@@ -121,61 +155,65 @@ public class PresentationBean {
     }
 
     public void delete() {
-        Map<String,String> paramsMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        int idPresentation = Integer.valueOf( paramsMap.get("idPresentation") );
+        Map<String, String> paramsMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        int idPresentation = Integer.valueOf(paramsMap.get("idPresentation"));
         presentationManager.delete(idPresentation);
     }
 
     public void update() {
         // On récupère la présentation concernée
         // On génère le message contenant les informations qui sera le contenu de la notification
-        Map<String,String> paramsMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        Map<String, String> paramsMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         int idPresentation = Integer.valueOf(paramsMap.get("idPresentation"));
         PresentationEntity pe = presentationManager.find(idPresentation);
         String message;
         String oldSujet = pe.getSujet();
 
-        if ( orateurs.length() > 0 )
-            pe.setOrateurs(orateurs);
+        if (orateurs.length() > 0 || heureDebut.length() > 0 || heureFin.length() > 0 || lieu.length() > 0
+                || date.length() > 0 || sujet.length() > 0) {
 
-        if ( heureDebut.length() > 0 )
-            pe.setHeureDeb(heureDebut);
+            if (orateurs.length() > 0)
+                pe.setOrateurs(orateurs);
 
-        if ( heureFin.length() > 0 )
-            pe.setHeureFin(heureFin);
+            if (heureDebut.length() > 0)
+                pe.setHeureDeb(heureDebut);
 
-        if ( lieu.length() > 0 )
-            pe.setLieu(lieu);
+            if (heureFin.length() > 0)
+                pe.setHeureFin(heureFin);
 
-        if ( date.length() > 0 )
-            pe.setDate(date);
+            if (lieu.length() > 0)
+                pe.setLieu(lieu);
 
-        if ( sujet.length() > 0 ) {
-            pe.setSujet(sujet);
-            message = "La présentation sur "+oldSujet+" concernera "+sujet+" et se déroulera " + " le " + pe.getDate() +
-                    "de "+pe.getHeureDeb()+
-                    " à "+pe.getHeureFin()+" en "+pe.getLieu();
-        } else
-            message = "La présentation sur "+oldSujet+" se déroulera " + " le " + pe.getDate() +
-                    "de "+pe.getHeureDeb()+
-                    " à "+pe.getHeureFin()+" en "+pe.getLieu();
+            if (date.length() > 0)
+                pe.setDate(date);
 
-        int refConf = pe.getRefConference();
+            if (sujet.length() > 0) {
+                pe.setSujet(sujet);
+                message = "La présentation sur " + oldSujet + " concernera " + sujet + " et se déroulera " + " le " + dateBDDtodateLisible(pe.getDate()) +
+                        "de " + pe.getHeureDeb() +
+                        " à " + pe.getHeureFin() + " en " + pe.getLieu();
+            } else
+                message = "La présentation sur " + oldSujet + " se déroulera " + " le " + dateBDDtodateLisible(pe.getDate()) +
+                        " de " + pe.getHeureDeb() +
+                        " à " + pe.getHeureFin() + " en " + pe.getLieu();
 
-        // On envoie la notification à tous les devices suivant la conférence en question
-        NotificationSender.getInstance().setListRegistrationIds(deviceManager.findAllRegistrationsIdsByConf(refConf));
-        NotificationSender.getInstance().sendNotification(message);
+            int refConf = pe.getRefConference();
 
-        // On met à jour la base de données à partir des informations reçues
-        presentationManager.update(pe);
+            // On envoie la notification à tous les devices suivant la conférence en question
+            NotificationSender.getInstance().setListRegistrationIds(deviceManager.findAllRegistrationsIdsByConf(refConf));
+            NotificationSender.getInstance().sendNotification(message);
 
-        // On réinitialise les données
-        this.orateurs = "";
-        this.heureDebut = "";
-        this.heureFin ="";
-        this.lieu = "";
-        this.date = "";
-        this.sujet = "";
+            // On met à jour la base de données à partir des informations reçues
+            presentationManager.update(pe);
+
+            // On réinitialise les données
+            this.orateurs = "";
+            this.heureDebut = "";
+            this.heureFin = "";
+            this.lieu = "";
+            this.date = "";
+            this.sujet = "";
+        }
 
     }
 
@@ -192,4 +230,24 @@ public class PresentationBean {
     public boolean isPertinent(String namePres) {
         return namePres.toLowerCase().contains(nameSearched.toLowerCase());
     }
+
+    // convert 2014-01-01 en Lundi 1 janv
+    private String dateBDDtodateLisible(String date) {
+        String dFormatee = "";
+
+        try {
+            SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd");
+
+            Date d = df1.parse(date);
+            DateFormat df2 = new SimpleDateFormat("EEEE d MMM", Locale.FRENCH);
+            dFormatee = df2.format(d);
+
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return dFormatee;
+    }
+
 }

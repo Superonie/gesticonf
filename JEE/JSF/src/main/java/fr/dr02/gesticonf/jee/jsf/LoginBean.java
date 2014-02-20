@@ -25,7 +25,7 @@ public class LoginBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private String password;
-    private String message="", uname="", oldPass="", newPass="";
+    private String message="", uname="admin", oldPass="", newPass="";
 
     public String getMessage() {
         return message;

@@ -17,7 +17,8 @@
         <f:selectItems value="#{conferenceManager.findAllNames()}">
         </f:selectItems>
     </h:selectOneMenu><br/>
-    Date : <h:inputText value="#{presentationBean.date}"></h:inputText><br/>
+    Date <i>( AAAA-MM-JJ )</i> : <h:inputText value="#{presentationBean.date}">
+</h:inputText><br/>
     Heure Debut : <h:inputText value="#{presentationBean.heureDebut}"></h:inputText><br/>
     Heure Fin : <h:inputText value="#{presentationBean.heureFin}"></h:inputText><br/>
     Sujet : <h:inputText value="#{presentationBean.sujet}"></h:inputText><br/>

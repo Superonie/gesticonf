@@ -49,7 +49,7 @@ public class GCMIntentService extends GCMBaseIntentService {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
         {
             Notification.Builder builder = new Notification.Builder(context);
-            builder.setSmallIcon(R.drawable.ic_launcher);
+            builder.setSmallIcon(R.drawable.orateur);
             builder.setTicker(message);
             builder.setWhen(System.currentTimeMillis());
             builder.setContentTitle(context.getString(R.string.app_name));
@@ -59,7 +59,7 @@ public class GCMIntentService extends GCMBaseIntentService {
         }
         else
         {
-            notification = new Notification(R.drawable.ic_launcher, message, System.currentTimeMillis());
+            notification = new Notification(R.drawable.orateur, message, System.currentTimeMillis());
             String title = context.getString(R.string.app_name);
             notification.setLatestEventInfo(context, title, message, intent);
         }
